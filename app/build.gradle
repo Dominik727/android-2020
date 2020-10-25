@@ -3,17 +3,21 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'kotlin-android-extensions'
+}
+
+plugins {
+    id("org.jmailen.kotlinter") version "3.2.0"
     id 'com.google.gms.google-services'
 }
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     buildToolsVersion "29.0.3"
 
     defaultConfig {
         applicationId "hu.bme.aut.android.conference"
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
@@ -47,10 +51,17 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
-    implementation 'com.google.firebase:firebase-analytics:17.2.2'
-    implementation 'com.google.firebase:firebase-auth:19.2.0'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.1'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.1'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
+    implementation 'com.google.firebase:firebase-auth:19.4.0'
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.1'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.1'
 
 }
