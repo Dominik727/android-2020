@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="app_name">Konferencia szervező</string>
+    <string name="title_activity_posts">PostsActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
     <string name="regist_successful">Registration successful</string>
+    <string name="loading">Betöltés..</string>
+    <string name="password">Jelszó</string>
+    <string name="forgot_my_password">Elfelejtettem a jelszavam</string>
+    <string name="login">Bejelentkezés</string>
+    <string name="new_user">Új felhasználó? Regisztráljon!</string>
+    <string name="please_login">Kérlek jelentkezz be</string>
+    <string name="Welcome_title">Szia, Üdvözlünk újra itt</string>
+    <string name="email">Email</string>
+    <string name="is_forgot_password">Elfelejtetted a jelszavad?</string>
+    <string name="forget_passwod_overview">Ahhoz, hogy megváltoztasd a jelszavad, írd be az email címed és a gombra kattintva kövesd az instrukciókat!</string>
+    <string name="forget_password_get">Jelszóemlékeztető kérése</string>
+    <string name="welcome_register">Szia, Üdvözlünk felhasználóink között</string>
+    <string name="please_register_account">Kérlek regisztrájl fiókot!</string>
+    <string name="registration">Regisztráció</string>
+    <string name="have_account">Már van fiókod?</string>
 </resources>

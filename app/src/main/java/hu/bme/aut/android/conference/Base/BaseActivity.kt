@@ -2,9 +2,11 @@ package hu.bme.aut.android.conference.Base
 
 import android.app.ProgressDialog
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import hu.bme.aut.android.conference.R
 
 abstract class BaseActivity : AppCompatActivity() {
 
@@ -29,9 +31,17 @@ abstract class BaseActivity : AppCompatActivity() {
 
         progressDialog = ProgressDialog(this).apply {
             setCancelable(false)
-            setMessage("Loading...")
+            setMessage(R.string.loading.toString())
             show()
         }
+    }
+
+    fun showBaseAlertDialog(title: String?, message: String?) {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(title)
+        builder.setMessage(message)
+
+        builder.show()
     }
 
     protected fun hideProgressDialog() {

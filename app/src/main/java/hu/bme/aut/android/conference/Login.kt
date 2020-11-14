@@ -2,9 +2,7 @@ package hu.bme.aut.android.conference
 
 import android.content.Intent
 import android.os.Bundle
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.UserProfileChangeRequest
 import hu.bme.aut.android.conference.Base.BaseActivity
 import hu.bme.aut.android.conference.extensions.validateNonEmpty
 import kotlinx.android.synthetic.main.activity_login.*
@@ -19,46 +17,27 @@ class Login : BaseActivity() {
 
         firebaseAuth = FirebaseAuth.getInstance()
 
-        btnRegister.setOnClickListener { registerClick() }
         btnLogin.setOnClickListener { loginClick() }
+        btnToRegister.setOnClickListener { registerToClick() }
+        btnforget.setOnClickListener { resetPassword() }
     }
 
     private fun validateForm() = etEmail.validateNonEmpty() && etPassword.validateNonEmpty()
 
-    private fun registerClick() {
-        if (!validateForm()) {
-            return
-        }
+    private fun registerToClick() {
+        val intent = Intent(this, Register::class.java)
+        startActivity(intent)
+    }
 
-        showProgressDialog()
-
-        firebaseAuth
-                .createUserWithEmailAndPassword(etEmail.text.toString(), etPassword.text.toString())
-                .addOnSuccessListener { result ->
-                    hideProgressDialog()
-
-                    val firebaseUser = result.user
-                    firebaseUser?.sendEmailVerification()
-                    val profileChangeRequest = UserProfileChangeRequest.Builder()
-                            .setDisplayName(firebaseUser?.email?.substringBefore('@'))
-                            .build()
-                    firebaseUser?.updateProfile(profileChangeRequest)
-
-                    toast(getString(R.string.regist_successful))
-                }
-                .addOnFailureListener { exception ->
-                    hideProgressDialog()
-
-                    toast(exception.message)
-                }
+    private fun resetPassword() {
+        val intent = Intent(this, ResetPasswordActivity::class.java)
+        startActivity(intent)
     }
 
     private fun loginClick() {
         if (!validateForm()) {
             return
         }
-
-
 
         showProgressDialog()
 
