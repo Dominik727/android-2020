@@ -12,12 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Conference">
         <activity android:name=".ResetPasswordActivity"></activity>
-        <activity android:name=".Register" />
+        <activity android:name=".RegisterActivity" />
         <activity
             android:name=".LoggedActivity"
             android:label="@string/title_activity_posts"
             android:theme="@style/Theme.Conference.NoActionBar" />
-        <activity android:name=".Login">
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

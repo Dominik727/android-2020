@@ -13,7 +13,6 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="regist_successful">Registration successful</string>
-    <string name="loading">Betöltés..</string>
     <string name="password">Jelszó</string>
     <string name="forgot_my_password">Elfelejtettem a jelszavam</string>
     <string name="login">Bejelentkezés</string>
@@ -24,9 +23,13 @@
     <string name="is_forgot_password">Elfelejtetted a jelszavad?</string>
     <string name="forget_passwod_overview">Ahhoz, hogy megváltoztasd a jelszavad, írd be az email címed és a gombra kattintva kövesd az instrukciókat!</string>
     <string name="forget_password_get">Jelszóemlékeztető kérése</string>
-    <string name="back">Vissza</string>
+    <string name="back" translatable="false">Vissza</string>
     <string name="welcome_register">Szia, Üdvözlünk felhasználóink között</string>
     <string name="please_register_account">Kérlek regisztrájl fiókot!</string>
     <string name="registration">Regisztráció</string>
     <string name="have_account">Már van fiókod?</string>
+    <string name="logout">Kilépés</string>
+    <string name="loading">Betöltés</string>
+    <string name="yes">Igen</string>
+    <string name="no">Nem</string>
 </resources>

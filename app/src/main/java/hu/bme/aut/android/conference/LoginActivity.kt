@@ -7,7 +7,7 @@ import hu.bme.aut.android.conference.Base.BaseActivity
 import hu.bme.aut.android.conference.extensions.validateNonEmpty
 import kotlinx.android.synthetic.main.activity_login.*
 
-class Login : BaseActivity() {
+class LoginActivity : BaseActivity() {
 
     private lateinit var firebaseAuth: FirebaseAuth
 
@@ -25,7 +25,7 @@ class Login : BaseActivity() {
     private fun validateForm() = etEmail.validateNonEmpty() && etPassword.validateNonEmpty()
 
     private fun registerToClick() {
-        val intent = Intent(this, Register::class.java)
+        val intent = Intent(this, RegisterActivity::class.java)
         startActivity(intent)
     }
 
@@ -47,7 +47,7 @@ class Login : BaseActivity() {
                     hideProgressDialog()
 
                     if (firebaseAuth.currentUser?.isEmailVerified!!) {
-                        startActivity(Intent(this@Login, LoggedActivity::class.java))
+                        startActivity(Intent(this@LoginActivity, LoggedActivity::class.java))
                         finish()
                     } else {
                         toast("Email cím nincs megerősítve!")

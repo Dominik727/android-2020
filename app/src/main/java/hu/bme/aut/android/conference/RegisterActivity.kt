@@ -7,7 +7,7 @@ import hu.bme.aut.android.conference.Base.BaseActivity
 import hu.bme.aut.android.conference.extensions.validateNonEmpty
 import kotlinx.android.synthetic.main.activity_register.*
 
-class Register : BaseActivity() {
+class RegisterActivity : BaseActivity() {
 
     private lateinit var firebaseAuth: FirebaseAuth
 

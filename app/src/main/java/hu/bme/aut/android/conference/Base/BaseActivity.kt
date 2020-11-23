@@ -1,6 +1,8 @@
 package hu.bme.aut.android.conference.Base
 
+import android.app.Dialog
 import android.app.ProgressDialog
+import android.content.DialogInterface
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -31,7 +33,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
         progressDialog = ProgressDialog(this).apply {
             setCancelable(false)
-            setMessage(R.string.loading.toString())
+            setMessage(getString(R.string.loading))
             show()
         }
     }
