@@ -1,8 +1,6 @@
 package hu.bme.aut.android.conference.Base
 
-import android.app.Dialog
 import android.app.ProgressDialog
-import android.content.DialogInterface
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -58,5 +56,4 @@ abstract class BaseActivity : AppCompatActivity() {
     protected fun toast(message: String?) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
-
 }

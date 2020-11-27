@@ -42,24 +42,21 @@ class LoginActivity : BaseActivity() {
         showProgressDialog()
 
         firebaseAuth
-                .signInWithEmailAndPassword(etEmail.text.toString(), etPassword.text.toString())
-                .addOnSuccessListener {
-                    hideProgressDialog()
+            .signInWithEmailAndPassword(etEmail.text.toString(), etPassword.text.toString())
+            .addOnSuccessListener {
+                hideProgressDialog()
 
-                    if (firebaseAuth.currentUser?.isEmailVerified!!) {
-                        startActivity(Intent(this@LoginActivity, LoggedActivity::class.java))
-                        finish()
-                    } else {
-                        toast("Email cím nincs megerősítve!")
-                    }
-
-
+                if (firebaseAuth.currentUser?.isEmailVerified!!) {
+                    startActivity(Intent(this@LoginActivity, LoggedActivity::class.java))
+                    finish()
+                } else {
+                    toast("Email cím nincs megerősítve!")
                 }
-                .addOnFailureListener { exception ->
-                    hideProgressDialog()
+            }
+            .addOnFailureListener { exception ->
+                hideProgressDialog()
 
-                    toast(exception.localizedMessage)
-                }
+                toast(exception.localizedMessage)
+            }
     }
-
 }

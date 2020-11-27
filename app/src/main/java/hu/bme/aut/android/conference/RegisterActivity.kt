@@ -11,7 +11,6 @@ class RegisterActivity : BaseActivity() {
 
     private lateinit var firebaseAuth: FirebaseAuth
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
@@ -30,7 +29,6 @@ class RegisterActivity : BaseActivity() {
 
     private fun forgetPassword() {
         firebaseAuth
-
     }
 
     private fun registerClick() {
@@ -41,23 +39,23 @@ class RegisterActivity : BaseActivity() {
         showProgressDialog()
 
         firebaseAuth
-                .createUserWithEmailAndPassword(etEmail.text.toString(), etPassword.text.toString())
-                .addOnSuccessListener { result ->
-                    hideProgressDialog()
+            .createUserWithEmailAndPassword(etEmail.text.toString(), etPassword.text.toString())
+            .addOnSuccessListener { result ->
+                hideProgressDialog()
 
-                    val firebaseUser = result.user
-                    firebaseUser?.sendEmailVerification()
-                    val profileChangeRequest = UserProfileChangeRequest.Builder()
-                            .setDisplayName(firebaseUser?.email?.substringBefore('@'))
-                            .build()
-                    firebaseUser?.updateProfile(profileChangeRequest)
+                val firebaseUser = result.user
+                firebaseUser?.sendEmailVerification()
+                val profileChangeRequest = UserProfileChangeRequest.Builder()
+                    .setDisplayName(firebaseUser?.email?.substringBefore('@'))
+                    .build()
+                firebaseUser?.updateProfile(profileChangeRequest)
 
-                    toast(getString(R.string.regist_successful))
-                }
-                .addOnFailureListener { exception ->
-                    hideProgressDialog()
+                toast(getString(R.string.regist_successful))
+            }
+            .addOnFailureListener { exception ->
+                hideProgressDialog()
 
-                    toast(exception.message)
-                }
+                toast(exception.message)
+            }
     }
 }

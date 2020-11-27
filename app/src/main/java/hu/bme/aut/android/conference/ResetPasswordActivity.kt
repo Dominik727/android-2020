@@ -23,13 +23,13 @@ class ResetPasswordActivity : BaseActivity() {
                 toast("írd be az email címed!")
             } else {
                 mAuth.sendPasswordResetEmail(email)
-                        .addOnCompleteListener { task ->
-                            if (task.isSuccessful) {
-                                showBaseAlertDialog("Jelszóemlékeztető", "Kiküldés sikeres")
-                            } else {
-                                toast("Nincs ilyen fiók!")
-                            }
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            showBaseAlertDialog("Jelszóemlékeztető", "Kiküldés sikeres")
+                        } else {
+                            toast("Nincs ilyen fiók!")
                         }
+                    }
             }
         }
 
