@@ -47,7 +47,7 @@ class LoginActivity : BaseActivity() {
                 hideProgressDialog()
 
                 if (firebaseAuth.currentUser?.isEmailVerified!!) {
-                    startActivity(Intent(this@LoginActivity, LoggedActivity::class.java))
+                    startActivity(Intent(this@LoginActivity, HomeDashboard::class.java))
                     finish()
                 } else {
                     toast("Email cím nincs megerősítve!")

@@ -3,61 +3,40 @@ package hu.bme.aut.android.conference
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.GravityCompat
+import androidx.core.view.GravityCompat.START
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import hu.bme.aut.android.conference.Base.BaseActivity
-import kotlinx.android.synthetic.main.activity_logged.*
+import kotlinx.android.synthetic.main.app_bar_main.*
 
-class LoggedActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
+class HomeDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-    private lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var drawer: DrawerLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_logged)
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setContentView(R.layout.activity_home_dashboard)
+
+        val toolbar: Toolbar = findViewById(R.id.toolbarForLogged)
         setSupportActionBar(toolbar)
 
-        val fab: FloatingActionButton = findViewById(R.id.fab)
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+        drawer = findViewById(R.id.drawer_layout)
+
+        var navigationView: NavigationView = findViewById(R.id.nav_view)
+        navigationView.setNavigationItemSelectedListener(this)
 
         var toogle = ActionBarDrawerToggle(
-            this, drawerLayout, toolbar,
+            this, drawer, toolbar,
             R.string.navigation_drawer_open, R.string.navigation_drawer_close
         )
 
-        drawerLayout.addDrawerListener(toogle)
+        drawer.addDrawerListener(toogle)
         toogle.syncState()
-
-        val navView: NavigationView = findViewById(R.id.nav_view)
-        navView.setNavigationItemSelectedListener(this)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.posts, menu)
-        return true
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment)
-        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -77,7 +56,7 @@ class LoggedActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedLi
                         getString(R.string.yes)
                     ) { _, _ ->
                         FirebaseAuth.getInstance().signOut()
-                        startActivity(Intent(this@LoggedActivity, LoginActivity::class.java))
+                        startActivity(Intent(this@HomeDashboard, LoginActivity::class.java))
                         finish()
                     }
                 }
@@ -85,13 +64,14 @@ class LoggedActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedLi
             }
         }
 
-        drawer_layout.closeDrawer(GravityCompat.START)
+        drawer.closeDrawer(START)
+
         return true
     }
 
     override fun onBackPressed() {
-        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
-            drawer_layout.closeDrawer(GravityCompat.START)
+        if (drawer.isDrawerOpen(START)) {
+            drawer.closeDrawer(START)
         } else {
             val a = Intent(Intent.ACTION_MAIN)
             a.addCategory(Intent.CATEGORY_HOME)
