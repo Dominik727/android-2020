@@ -11,8 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Conference">
-        <activity android:name=".HomeDashboard"
-            android:theme="@style/Theme.Conference.NoActionBar"/>
+        <activity android:name=".SectionActivity"></activity>
+        <activity android:name=".Sections" />
+        <activity android:name=".ListSections" />
+        <activity
+            android:name=".HomeDashboard"
+            android:theme="@style/Theme.Conference.NoActionBar" />
         <activity android:name=".ResetPasswordActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity">

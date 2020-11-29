@@ -4,35 +4,18 @@ import android.os.Bundle
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import hu.bme.aut.android.conference.Base.BaseActivity
-import hu.bme.aut.android.conference.call.REGISTERAPI
-import hu.bme.aut.android.conference.call.UserApi
 import hu.bme.aut.android.conference.enum.userType
 import hu.bme.aut.android.conference.extensions.validateNonEmpty
 import hu.bme.aut.android.conference.model.User
-import kotlinx.android.synthetic.main.activity_login.*
+import hu.bme.aut.filmdatabase.network.UserNetworkManager
 import kotlinx.android.synthetic.main.activity_register.*
-import kotlinx.android.synthetic.main.activity_register.etEmail
-import kotlinx.android.synthetic.main.activity_register.etPassword
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class RegisterActivity : BaseActivity() {
 
     private lateinit var firebaseAuth: FirebaseAuth
-
-    private val userApi: REGISTERAPI
-
-    init {
-        val retrofit = Retrofit.Builder()
-            .baseUrl(UserApi.ENDPOINT_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        this.userApi = retrofit.create(REGISTERAPI::class.java)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,15 +59,25 @@ class RegisterActivity : BaseActivity() {
                     etPhone.text.toString(), false
                 )
 
-                val registercall = userApi.newUser(user)
-
                 var attempt = 0
 
-                registercall.enqueue(object : Callback<Boolean> {
+                UserNetworkManager.newUser(user).enqueue(object : Callback<Boolean> {
+                    /**
+                     * Invoked for a received HTTP response.
+                     *
+                     *
+                     * Note: An HTTP response may still indicate an application-level failure such as a 404 or 500.
+                     * Call [Response.isSuccessful] to determine if the response indicates success.
+                     */
                     override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
                         toast(getString(R.string.regist_successful))
+                        loginToClick()
                     }
 
+                    /**
+                     * Invoked when a network exception occurred talking to the server or when an unexpected
+                     * exception occurred creating the request or processing the response.
+                     */
                     override fun onFailure(call: Call<Boolean>, t: Throwable) {
                         if (attempt > 3) {
                             Thread.sleep(1_000)
@@ -93,7 +86,7 @@ class RegisterActivity : BaseActivity() {
                             return
                         }
                         attempt += 1
-                        registercall.clone().enqueue(this)
+                        UserNetworkManager.newUser(user).clone().enqueue(this)
                     }
                 })
             }

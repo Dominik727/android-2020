@@ -4,10 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import com.google.firebase.auth.FirebaseAuth
 import hu.bme.aut.android.conference.Base.BaseActivity
-import hu.bme.aut.android.conference.call.LOGINAPI
-import hu.bme.aut.android.conference.call.UserApi
 import hu.bme.aut.android.conference.extensions.validateNonEmpty
 import hu.bme.aut.android.conference.model.User
+import hu.bme.aut.filmdatabase.network.UserNetworkManager
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_login.etEmail
 import kotlinx.android.synthetic.main.activity_login.etPassword
@@ -15,23 +14,10 @@ import kotlinx.android.synthetic.main.activity_register.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class LoginActivity : BaseActivity() {
 
     private lateinit var firebaseAuth: FirebaseAuth
-
-    private val userApi: LOGINAPI
-
-    init {
-        val retrofit = Retrofit.Builder()
-            .baseUrl(UserApi.ENDPOINT_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        this.userApi = retrofit.create(LOGINAPI::class.java)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,20 +58,27 @@ class LoginActivity : BaseActivity() {
 
                     var attempt = 0
 
-                    val loginCall = userApi.login(
+                    UserNetworkManager.login(
                         etEmail.text.toString(),
                         etPassword.text.toString()
-                    )
-
-                    loginCall.enqueue(object : Callback<User> {
+                    ).enqueue(object : Callback<User> {
+                        /**
+                         * Invoked for a received HTTP response.
+                         *
+                         *
+                         * Note: An HTTP response may still indicate an application-level failure such as a 404 or 500.
+                         * Call [Response.isSuccessful] to determine if the response indicates success.
+                         */
                         override fun onResponse(call: Call<User>, response: Response<User>) {
-                            if (response.isSuccessful) {
-                                toast(getString(R.string.registration_success))
-                                startActivity(Intent(this@LoginActivity, HomeDashboard::class.java))
-                                finish()
-                            }
+                            toast(getString(R.string.login_success))
+                            startActivity(Intent(this@LoginActivity, HomeDashboard::class.java))
+                            finish()
                         }
 
+                        /**
+                         * Invoked when a network exception occurred talking to the server or when an unexpected
+                         * exception occurred creating the request or processing the response.
+                         */
                         override fun onFailure(call: Call<User>, t: Throwable) {
                             if (attempt > 3) {
                                 Thread.sleep(1_000)
@@ -94,7 +87,10 @@ class LoginActivity : BaseActivity() {
                                 return
                             }
                             attempt += 1
-                            loginCall?.clone()?.enqueue(this)
+                            UserNetworkManager.login(
+                                etEmail.text.toString(),
+                                etPassword.text.toString()
+                            ).clone().enqueue(this)
                         }
                     })
                 } else {
