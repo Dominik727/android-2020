@@ -31,4 +31,7 @@
     <string name="loading">Betöltés</string>
     <string name="yes">Igen</string>
     <string name="no">Nem</string>
+    <string name="phoneNumber">Telefonszám</string>
+    <string name="registration_success">A fiók regisztráció sikeres volt</string>
+    <string name="error_please_try_again">Hiba történt, próbája újra!</string>
 </resources>
