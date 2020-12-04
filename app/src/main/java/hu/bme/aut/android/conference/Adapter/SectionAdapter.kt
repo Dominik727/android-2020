@@ -8,7 +8,7 @@ import hu.bme.aut.android.conference.R
 import hu.bme.aut.android.conference.model.Section
 import kotlinx.android.synthetic.main.item_section.view.*
 
-class SectionAdapter(private val listener: OnFilmSelectedListener) : RecyclerView.Adapter<SectionAdapter.SectionViewHolder>() { // ktlint-disable max-line-length
+class SectionAdapter(private val listener: OnSectionSelectedListener) : RecyclerView.Adapter<SectionAdapter.SectionViewHolder>() { // ktlint-disable max-line-length
 
     private var sections: MutableList<Section> = ArrayList()
 
@@ -25,13 +25,13 @@ class SectionAdapter(private val listener: OnFilmSelectedListener) : RecyclerVie
 
     override fun getItemCount(): Int = sections.size
 
-    fun addFilm(newFilm: Section) {
+    fun addSection(section: Section) {
 
-        sections.add(newFilm)
+        sections.add(section)
         notifyItemInserted(sections.size - 1)
     }
 
-    fun removeFilm(position: Int) {
+    fun removeSection(position: Int) {
         sections.removeAt(position)
         notifyItemRemoved(position)
         if (position < sections.size) {
@@ -39,9 +39,9 @@ class SectionAdapter(private val listener: OnFilmSelectedListener) : RecyclerVie
         }
     }
 
-    fun GetFilmID(film: Section?): Int {
+    fun getSectionId(section: Section?): Int {
         for (i in 0..itemCount) {
-            if (sections[i] == film) {
+            if (sections[i] == section) {
                 return i
             }
         }
@@ -54,15 +54,15 @@ class SectionAdapter(private val listener: OnFilmSelectedListener) : RecyclerVie
 
         init {
             itemView.setOnClickListener {
-                listener.onFilmSelected(item)
+                listener.onSectionmSelected(item)
             }
         }
-        fun bind(newFilm: Section?) {
-            item = newFilm
+        fun bind(section: Section?) {
+            item = section
             itemView.FilmItemNameTextView.text = item!!.name
         }
     }
-    interface OnFilmSelectedListener {
-        fun onFilmSelected(film: Section?)
+    interface OnSectionSelectedListener {
+        fun onSectionmSelected(section: Section?)
     }
 }
