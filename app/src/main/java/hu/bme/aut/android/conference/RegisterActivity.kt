@@ -4,10 +4,10 @@ import android.os.Bundle
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import hu.bme.aut.android.conference.Base.BaseActivity
+import hu.bme.aut.android.conference.Network.UserNetworkManager
 import hu.bme.aut.android.conference.enum.userType
 import hu.bme.aut.android.conference.extensions.validateNonEmpty
 import hu.bme.aut.android.conference.model.User
-import hu.bme.aut.filmdatabase.network.UserNetworkManager
 import kotlinx.android.synthetic.main.activity_register.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -62,22 +62,11 @@ class RegisterActivity : BaseActivity() {
                 var attempt = 0
 
                 UserNetworkManager.newUser(user).enqueue(object : Callback<Boolean> {
-                    /**
-                     * Invoked for a received HTTP response.
-                     *
-                     *
-                     * Note: An HTTP response may still indicate an application-level failure such as a 404 or 500.
-                     * Call [Response.isSuccessful] to determine if the response indicates success.
-                     */
                     override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
                         toast(getString(R.string.regist_successful))
                         loginToClick()
                     }
 
-                    /**
-                     * Invoked when a network exception occurred talking to the server or when an unexpected
-                     * exception occurred creating the request or processing the response.
-                     */
                     override fun onFailure(call: Call<Boolean>, t: Throwable) {
                         if (attempt > 3) {
                             Thread.sleep(1_000)

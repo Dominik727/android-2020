@@ -54,7 +54,7 @@ class SectionAdapter(private val listener: OnSectionSelectedListener) : Recycler
 
         init {
             itemView.setOnClickListener {
-                listener.onSectionmSelected(item)
+                item?.let { it1 -> listener.onSectionmSelected(it1) }
             }
         }
         fun bind(section: Section?) {
@@ -63,6 +63,6 @@ class SectionAdapter(private val listener: OnSectionSelectedListener) : Recycler
         }
     }
     interface OnSectionSelectedListener {
-        fun onSectionmSelected(section: Section?)
+        fun onSectionmSelected(section: Section)
     }
 }

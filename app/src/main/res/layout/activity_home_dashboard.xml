@@ -17,7 +17,7 @@
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/ic_banner_background"
+            android:background="@color/design_default_color_primary"
             android:id="@+id/toolbar3"
             android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
             app:popupTheme="@style/Theme.AppCompat.Light"

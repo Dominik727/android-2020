@@ -1,4 +1,4 @@
-package hu.bme.aut.filmdatabase.network
+package hu.bme.aut.android.conference.Network
 
 import hu.bme.aut.android.conference.Network.Api.SectionApi
 import hu.bme.aut.android.conference.model.Section
@@ -21,7 +21,7 @@ object SectionNetworkManager {
         SECTIONS_API = retrofit.create(SectionApi::class.java)
     }
 
-    fun getSections(): Call<List<Section>> {
-        return SECTIONS_API.getSections()
+    fun getSections(token: String): Call<List<Section>> {
+        return SECTIONS_API.getSections(token)
     }
 }

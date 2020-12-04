@@ -16,6 +16,10 @@ class HomeDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedLis
     private lateinit var drawer: DrawerLayout
     private lateinit var adapter: SectionAdapter
 
+    companion object {
+        var Auth_KEY: String? = null
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_dashboard)
@@ -25,10 +29,10 @@ class HomeDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedLis
 
         drawer = findViewById(R.id.drawer_layout)
 
-        var navigationView: NavigationView = findViewById(R.id.nav_view)
+        val navigationView: NavigationView = findViewById(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
 
-        var toogle: ActionBarDrawerToggle = ActionBarDrawerToggle(
+        val toogle = ActionBarDrawerToggle(
             this, drawer, toolbar,
             R.string.navigation_drawer_open, R.string.navigation_drawer_close
         )

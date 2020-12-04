@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/password"
                 android:inputType="textPassword"
-                android:text="Dominik99" />
+                android:text="Dominvhiik99@Đ[đĐ[Đ" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

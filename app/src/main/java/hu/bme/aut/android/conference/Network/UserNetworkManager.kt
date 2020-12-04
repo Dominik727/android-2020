@@ -1,13 +1,10 @@
-package hu.bme.aut.filmdatabase.network
+package hu.bme.aut.android.conference.Network
 
 import hu.bme.aut.android.conference.Network.Api.UserApi
-import hu.bme.aut.android.conference.Network.Api.SectionApi
-import hu.bme.aut.android.conference.model.Section
 import hu.bme.aut.android.conference.model.User
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.Body
 
 object UserNetworkManager {
     private val retrofit: Retrofit
@@ -28,9 +25,7 @@ object UserNetworkManager {
         return USER_API.newUser(user)
     }
 
-    fun login(email: String, password: String): Call<User> {
-        return  USER_API.login(email, password)
+    fun login(user: User): Call<Void> {
+        return USER_API.login(user)
     }
-
-
 }

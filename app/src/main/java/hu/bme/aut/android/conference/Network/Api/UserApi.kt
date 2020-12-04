@@ -17,6 +17,6 @@ interface UserApi {
     @POST("users/new")
     fun newUser(@Body user: User): Call<Boolean>
 
-    @POST("/users/{email}")
-    fun login(@Path("email") email: String, @Body password: String): Call<User>
+    @POST("/login")
+    fun login(@Body user: User): Call<Void>
 }
