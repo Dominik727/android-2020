@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "429694853337",
+    "firebase_url": "https://konferenciaszervezo-cb7d9.firebaseio.com",
+    "project_id": "konferenciaszervezo-cb7d9",
+    "storage_bucket": "konferenciaszervezo-cb7d9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:429694853337:android:0f0ab672f32b91d9655ec8",
+        "android_client_info": {
+          "package_name": "hu.bme.aut.android.conference"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "429694853337-gsvkls8lauf82ueirf96r78roemereur.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAllC8cGPy_gi7I5iB-Mrt_DJNxA1D7TPU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "429694853337-gsvkls8lauf82ueirf96r78roemereur.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:429694853337:android:83544d7274e64705655ec8",
+        "android_client_info": {
+          "package_name": "hu.bme.aut.android.konferenciaszervezo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "429694853337-gsvkls8lauf82ueirf96r78roemereur.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAllC8cGPy_gi7I5iB-Mrt_DJNxA1D7TPU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "429694853337-gsvkls8lauf82ueirf96r78roemereur.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
