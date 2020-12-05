@@ -37,6 +37,7 @@ class ListSections : Fragment(), SectionAdapter.OnSectionSelectedListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        progressbarVisibility(true)
         initRecyclerView()
         initFab()
     }
@@ -64,6 +65,7 @@ class ListSections : Fragment(), SectionAdapter.OnSectionSelectedListener {
                         response.body()?.forEach { x ->
                             adapter.addSection(x)
                         }
+                        progressbarVisibility(false)
                     }
 
                     override fun onFailure(call: Call<List<Section>>, t: Throwable) {
@@ -72,7 +74,14 @@ class ListSections : Fragment(), SectionAdapter.OnSectionSelectedListener {
         }
     }
 
+    private fun progressbarVisibility(isVisible: Boolean) {
+        when (isVisible) {
+            true -> progressBar.visibility = View.VISIBLE
+            false -> progressBar.visibility = View.GONE
+        }
+    }
+
     override fun onSectionmSelected(section: Section) {
-            Toast.makeText(this.context, section.id.toString(), Toast.LENGTH_SHORT).show()
+        Toast.makeText(this.context, section.id.toString(), Toast.LENGTH_SHORT).show()
     }
 }

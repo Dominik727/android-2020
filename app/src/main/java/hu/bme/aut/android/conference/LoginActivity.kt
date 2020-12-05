@@ -53,7 +53,6 @@ class LoginActivity : BaseActivity() {
         firebaseAuth
             .signInWithEmailAndPassword(etEmail.text.toString(), etPassword.text.toString())
             .addOnSuccessListener {
-                hideProgressDialog()
 
                 if (firebaseAuth.currentUser?.isEmailVerified!!) {
 
@@ -74,6 +73,7 @@ class LoginActivity : BaseActivity() {
                                     x.first.startsWith("Authorization")
                                 }
                                 HomeDashboard.Auth_KEY = result.first().second
+                                HomeDashboard.USER = user
                                 toast(getString(R.string.login_success))
                                 startActivity(Intent(this@LoginActivity, HomeDashboard::class.java))
                                 finish()

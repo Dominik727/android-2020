@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import hu.bme.aut.android.conference.Base.DateFormatter
 import hu.bme.aut.android.conference.R
 import hu.bme.aut.android.conference.model.Section
 import kotlinx.android.synthetic.main.item_section.view.*
@@ -59,7 +60,11 @@ class SectionAdapter(private val listener: OnSectionSelectedListener) : Recycler
         }
         fun bind(section: Section?) {
             item = section
-            itemView.FilmItemNameTextView.text = item!!.name
+            itemView.SectionNameItemTextView.text = item?.name ?: ""
+            itemView.SectionDateEndItemTextView.text = item?.endTime?.let {
+                DateFormatter.shared.dateToFormattedTimestampStringWithoutSeconds(it) }
+            itemView.SectionDateStartItemTextView.text = item?.startTime?.let {
+                DateFormatter.shared.dateToFormattedTimestampStringWithoutSeconds(it) }
         }
     }
     interface OnSectionSelectedListener {

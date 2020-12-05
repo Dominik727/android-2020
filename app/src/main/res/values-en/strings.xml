@@ -35,4 +35,7 @@
     <string name="registration_success">A fiók regisztráció sikeres volt</string>
     <string name="error_please_try_again">Hiba történt, próbája újra!</string>
     <string name="login_success">Bejelentkezés sikeres</string>
+    <string name="date_start">Date_start</string>
+    <string name="date_end">Date_end</string>
+    <string name="exit_confirmed">Valóban ki akar lépni?</string>
 </resources>
