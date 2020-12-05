@@ -4,10 +4,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import hu.bme.aut.android.conference.Base.DateFormatter
 import hu.bme.aut.android.conference.R
 import hu.bme.aut.android.conference.model.Section
 import kotlinx.android.synthetic.main.item_section.view.*
+import okhttp3.internal.notifyAll
 
 class SectionAdapter(private val listener: OnSectionSelectedListener) : RecyclerView.Adapter<SectionAdapter.SectionViewHolder>() { // ktlint-disable max-line-length
 
@@ -32,12 +32,14 @@ class SectionAdapter(private val listener: OnSectionSelectedListener) : Recycler
         notifyItemInserted(sections.size - 1)
     }
 
+    fun removeAllSection() {
+        sections = ArrayList()
+    }
+
     fun removeSection(position: Int) {
         sections.removeAt(position)
+        notifyItemRangeChanged(position, itemCount)
         notifyItemRemoved(position)
-        if (position < sections.size) {
-            notifyItemRangeChanged(position, sections.size - position)
-        }
     }
 
     fun getSectionId(section: Section?): Int {
@@ -55,19 +57,27 @@ class SectionAdapter(private val listener: OnSectionSelectedListener) : Recycler
 
         init {
             itemView.setOnClickListener {
-                item?.let { it1 -> listener.onSectionmSelected(it1) }
+                item?.let { it1 -> listener.onSectionSelected(it1) }
+            }
+            itemView.setOnLongClickListener {
+                item?.let { it1 -> listener.OnLongSectionListener(it1) }
+                return@setOnLongClickListener false
             }
         }
         fun bind(section: Section?) {
             item = section
             itemView.SectionNameItemTextView.text = item?.name ?: ""
-            itemView.SectionDateEndItemTextView.text = item?.endTime?.let {
-                DateFormatter.shared.dateToFormattedTimestampStringWithoutSeconds(it) }
-            itemView.SectionDateStartItemTextView.text = item?.startTime?.let {
-                DateFormatter.shared.dateToFormattedTimestampStringWithoutSeconds(it) }
+            itemView.SectionDateEndItemTextView.text = item?.startTime?.dropLast(10)
+                ?.replace("T", " ")
+                ?: ""
+            itemView.SectionDateStartItemTextView.text = item?.startTime?.dropLast(10)
+                ?.replace("T", " ")
+                ?: ""
         }
     }
+
     interface OnSectionSelectedListener {
-        fun onSectionmSelected(section: Section)
+        fun onSectionSelected(section: Section)
+        fun OnLongSectionListener(section: Section)
     }
 }

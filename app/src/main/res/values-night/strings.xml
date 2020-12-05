@@ -19,4 +19,6 @@
     <string name="Email_not_confirmed">Email cím nincs megerősítve!</string>
     <string name="start_date">Kezdő dátum</string>
     <string name="end_time">Befejező Dátum</string>
+    <string name="deleteSection">Törli a szekciót?</string>
+    <string name="delete_unsuccess">Törlés sikertelen!</string>
 </resources>

@@ -50,4 +50,6 @@
     <string name="section_name">Szekció neve</string>
     <string name="start_date">Kezdő dátum</string>
     <string name="end_time">Befejező Dátum</string>
+    <string name="deleteSection">Törli a szekciót?</string>
+    <string name="delete_unsuccess">Törlés sikertelen!</string>
 </resources>

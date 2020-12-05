@@ -80,8 +80,8 @@ class LoginActivity : BaseActivity() {
                                 }
                                 HomeDashboard.Auth_KEY = result.first().second
                                 HomeDashboard.USER = user
-                                toast(getString(R.string.login_success))
                                 startActivity(Intent(this@LoginActivity, HomeDashboard::class.java))
+                                toast(getString(R.string.login_success))
                                 finish()
                             }
                         }

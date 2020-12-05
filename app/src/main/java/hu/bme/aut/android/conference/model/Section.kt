@@ -6,14 +6,15 @@
 
 package hu.bme.aut.android.conference.model
 
-import java.util.*
+import java.util.Date
 
 data class Section(
     val id: Long?,
-    val name: String?,
-    var startTime: Date?,
-    var endTime: Date?,
-    val lectures: List<Any>?
+    var name: String?,
+    var startTime: String?,
+    var endTime: String?,
+    val lectures: List<Any>?,
+    val users: List<User>?
 ) {
-    constructor() : this(null, null, null, null, null)
+    constructor() : this(null, null, null, null, null, null)
 }

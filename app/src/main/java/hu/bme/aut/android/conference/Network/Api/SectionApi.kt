@@ -8,11 +8,16 @@ package hu.bme.aut.android.conference.Network.Api
 
 import hu.bme.aut.android.conference.model.Section
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Header
+import retrofit2.http.*
 
 interface SectionApi {
 
-    @GET("sections/all")
+    @GET("all")
     fun getSections(@Header("Authorization") token: String): Call<List<Section>>
+
+    @POST("new")
+    fun newSection(@Header("Authorization") token: String, @Body section: Section): Call<Void>
+
+    @DELETE("delete/{id}")
+    fun deleteSection(@Header("Authorization") token: String, @Path("id") id: Long): Call<Void>
 }

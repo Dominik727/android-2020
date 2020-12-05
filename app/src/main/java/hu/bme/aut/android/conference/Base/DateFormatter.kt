@@ -19,4 +19,14 @@ class DateFormatter {
         val format = SimpleDateFormat("yyyy-MM-dd HH:mm")
         return format.format(date)
     }
+
+    fun dateToGsonDateFormat(date: String): String {
+        return date.replace(" ", "T")
+    }
+
+    fun dateToGsonDateFormatDate(date: Date): String {
+        val format = SimpleDateFormat("yyyy-MM-dd HH:mm")
+        return format.format(date).replace(" ", "T")
+    }
+
 }
