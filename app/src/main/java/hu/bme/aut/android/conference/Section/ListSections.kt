@@ -1,11 +1,12 @@
 /*
  * Copyright (c) 2020
- * Created by Suszter Dominik on 2020. 12. 4
+ * Created by Suszter Dominik on 2020. 12. 5
  * Copyright © 2020. RR. All rights reserved.
  */
 
-package hu.bme.aut.android.conference
+package hu.bme.aut.android.conference.Section
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +15,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import hu.bme.aut.android.conference.Adapter.SectionAdapter
+import hu.bme.aut.android.conference.HomeDashboard
 import hu.bme.aut.android.conference.Network.SectionNetworkManager
+import hu.bme.aut.android.conference.R
 import hu.bme.aut.android.conference.model.Section
 import kotlinx.android.synthetic.main.fragment_list_sections.*
 import retrofit2.Call
@@ -44,6 +47,8 @@ class ListSections : Fragment(), SectionAdapter.OnSectionSelectedListener {
 
     private fun initFab() {
         fab.setOnClickListener {
+            val destination = Intent(context, SectionDetail()::class.java)
+            startActivity(destination)
         }
     }
 
@@ -62,9 +67,7 @@ class ListSections : Fragment(), SectionAdapter.OnSectionSelectedListener {
                         call: Call<List<Section>>,
                         response: Response<List<Section>>
                     ) {
-                        response.body()?.forEach { x ->
-                            adapter.addSection(x)
-                        }
+                        response.body()?.forEach(adapter::addSection)
                         progressbarVisibility(false)
                     }
 
@@ -74,7 +77,7 @@ class ListSections : Fragment(), SectionAdapter.OnSectionSelectedListener {
         }
     }
 
-    private fun progressbarVisibility(isVisible: Boolean) {
+    fun progressbarVisibility(isVisible: Boolean) {
         when (isVisible) {
             true -> progressBar.visibility = View.VISIBLE
             false -> progressBar.visibility = View.GONE

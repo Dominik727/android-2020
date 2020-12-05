@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2020
+ * Created by Suszter Dominik on 2020. 12. 5
+ * Copyright © 2020. RR. All rights reserved.
+ */
+
 package hu.bme.aut.android.conference
 
 import android.content.Intent
@@ -12,6 +18,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import hu.bme.aut.android.conference.Adapter.SectionAdapter
 import hu.bme.aut.android.conference.Base.BaseActivity
+import hu.bme.aut.android.conference.Section.ListSections
 import hu.bme.aut.android.conference.model.User
 
 class HomeDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListener { // ktlint-disable max-line-length

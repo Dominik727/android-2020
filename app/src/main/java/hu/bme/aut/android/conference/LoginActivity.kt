@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2020
+ * Created by Suszter Dominik on 2020. 12. 5
+ * Copyright © 2020. RR. All rights reserved.
+ */
+
 package hu.bme.aut.android.conference
 
 import android.content.Intent
@@ -94,7 +100,7 @@ class LoginActivity : BaseActivity() {
                         }
                     })
                 } else {
-                    toast("Email cím nincs megerősítve!")
+                    toast(getString(R.string.Email_not_confirmed))
                 }
             }
             .addOnFailureListener { exception ->

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright (c) 2020
-  ~ Created by Suszter Dominik on 2020. 12. 4
+  ~ Created by Suszter Dominik on 2020. 12. 5
   ~ Copyright © 2020. RR. All rights reserved.
   -->
 
@@ -10,14 +10,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ListSections">
+    tools:context=".Section.ListSections">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/MainRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
@@ -25,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginBottom="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginEnd="5dp"
         android:clickable="true"
         app:elevation="8dp"
         android:src="@drawable/ic_baseline_add_24"

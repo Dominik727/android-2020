@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2020
+  ~ Created by Suszter Dominik on 2020. 12. 5
+  ~ Copyright © 2020. RR. All rights reserved.
+  -->
+
 <resources>
     <string name="app_name">Konferencia szervező</string>
     <string name="title_activity_posts">PostsActivity</string>
@@ -40,4 +46,8 @@
     <string name="date_start">Date_start</string>
     <string name="date_end">Date_end</string>
     <string name="exit_confirmed">Valóban ki akar lépni?</string>
+    <string name="Email_not_confirmed">Email cím nincs megerősítve!</string>
+    <string name="section_name">Szekció neve</string>
+    <string name="start_date">Kezdő dátum</string>
+    <string name="end_time">Befejező Dátum</string>
 </resources>
