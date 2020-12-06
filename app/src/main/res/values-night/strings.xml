@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2020
+  ~ Created by Suszter Dominik on 2020. 12. 5
+  ~ Copyright © 2020. RR. All rights reserved.
+  -->
+
 <resources>
     <string name="loading">Betöltés</string>
     <string name="yes">Igen</string>
@@ -7,4 +13,15 @@
     <string name="registration_success">A fiók regisztráció sikeres volt</string>
     <string name="error_please_try_again">Hiba történt, próbája újra!</string>
     <string name="login_success">Bejelentkezés sikeres</string>
+    <string name="date_start">Date_start</string>
+    <string name="date_end">Date_end</string>
+    <string name="exit_confirmed">Valóban ki akar lépni?</string>
+    <string name="Email_not_confirmed">Email cím nincs megerősítve!</string>
+    <string name="start_date">Kezdő dátum</string>
+    <string name="end_time">Befejező Dátum</string>
+    <string name="deleteSection">Törli a szekciót?</string>
+    <string name="delete_unsuccess">Törlés sikertelen!</string>
+    <string name="Section_detail_title">\"Szekció részletei - \"</string>
+    <string name="New_section_title">Új szekció</string>
+    <string name="Section_saved">Szekció elmentve!</string>
 </resources>
