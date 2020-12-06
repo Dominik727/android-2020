@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2020
+ * Created by Suszter Dominik on 2020. 12. 6
+ * Copyright © 2020. RR. All rights reserved.
+ */
+
 package hu.bme.aut.android.conference
 
 import android.os.Bundle
@@ -56,7 +62,7 @@ class RegisterActivity : BaseActivity() {
                 val user = User(
                     null, etEmail.text.toString(), etPassword.text.toString(),
                     etEmail.text.toString(), userType.USER,
-                    etPhone.text.toString(), false
+                    etPhone.text.toString(), false, ArrayList()
                 )
 
                 var attempt = 0

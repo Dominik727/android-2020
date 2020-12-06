@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2020
- * Created by Suszter Dominik on 2020. 12. 5
+ * Created by Suszter Dominik on 2020. 12. 6
  * Copyright © 2020. RR. All rights reserved.
  */
 
@@ -54,6 +54,7 @@ class ListSections :
     private fun initFab() {
         detail_fab.setOnClickListener {
             SectionDetail.listener = this
+            SectionDetail.section = null
             val destination = Intent(context, SectionDetail()::class.java)
             startActivity(destination)
         }
@@ -81,6 +82,10 @@ class ListSections :
                     }
 
                     override fun onFailure(call: Call<List<Section>>, t: Throwable) {
+                        Toast.makeText(
+                            context,
+                            getString(R.string.error), Toast.LENGTH_SHORT
+                        ).show()
                     }
                 })
         }
@@ -94,7 +99,10 @@ class ListSections :
     }
 
     override fun onSectionSelected(section: Section) {
-        Toast.makeText(this.context, section.id.toString(), Toast.LENGTH_SHORT).show()
+        SectionDetail.listener = this
+        SectionDetail.section = section
+        val destination = Intent(context, SectionDetail()::class.java)
+        startActivity(destination)
     }
 
     override fun OnLongSectionListener(section: Section) {
@@ -122,7 +130,10 @@ class ListSections :
                                         return
                                     }
                                     onRefresh()
-                                    Toast.makeText(context, getString(R.string.delete_unsuccess), Toast.LENGTH_LONG).show()
+                                    Toast.makeText(
+                                        context, getString(R.string.delete_unsuccess),
+                                        Toast.LENGTH_LONG
+                                    ).show()
                                 }
 
                                 override fun onFailure(

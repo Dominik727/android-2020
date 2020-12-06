@@ -1,17 +1,26 @@
+/*
+ * Copyright (c) 2020
+ * Created by Suszter Dominik on 2020. 12. 6
+ * Copyright © 2020. RR. All rights reserved.
+ */
+
 package hu.bme.aut.android.conference.Adapter
 
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import hu.bme.aut.android.conference.HomeDashboard
 import hu.bme.aut.android.conference.R
 import hu.bme.aut.android.conference.model.Section
 import kotlinx.android.synthetic.main.item_section.view.*
-import okhttp3.internal.notifyAll
+import kotlinx.android.synthetic.main.nav_header_main.view.*
 
 class SectionAdapter(private val listener: OnSectionSelectedListener) : RecyclerView.Adapter<SectionAdapter.SectionViewHolder>() { // ktlint-disable max-line-length
 
     private var sections: MutableList<Section> = ArrayList()
+    private lateinit var res: Resources
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SectionViewHolder {
         val view: View =
@@ -20,6 +29,7 @@ class SectionAdapter(private val listener: OnSectionSelectedListener) : Recycler
     }
 
     override fun onBindViewHolder(holder: SectionViewHolder, position: Int) {
+        res = holder.itemView.context.resources
         val item = sections[position]
         holder.bind(item)
     }
@@ -66,6 +76,9 @@ class SectionAdapter(private val listener: OnSectionSelectedListener) : Recycler
         }
         fun bind(section: Section?) {
             item = section
+            if (HomeDashboard.USER?.sections?.contains(item) == true) {
+                itemView.imageView.setImageDrawable(res.getDrawable(R.drawable.ic_baseline_done_24))
+            }
             itemView.SectionNameItemTextView.text = item?.name ?: ""
             itemView.SectionDateEndItemTextView.text = item?.startTime?.dropLast(10)
                 ?.replace("T", " ")

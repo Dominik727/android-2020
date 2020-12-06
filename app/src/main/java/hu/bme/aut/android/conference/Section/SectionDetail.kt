@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2020
- * Created by Suszter Dominik on 2020. 12. 5
+ * Created by Suszter Dominik on 2020. 12. 6
  * Copyright © 2020. RR. All rights reserved.
  */
 
@@ -10,6 +10,7 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
 import android.text.format.DateFormat
+import android.view.View
 import android.widget.DatePicker
 import android.widget.TimePicker
 import hu.bme.aut.android.conference.Adapter.SectionAdapter
@@ -39,9 +40,9 @@ class SectionDetail :
 
     companion object {
         var listener: SectionAddedListener? = null
+        var section: Section? = null
     }
 
-    var section: Section? = null
     var dateType: DateType? = null
     private var startTime: Calendar = Calendar.getInstance()
     private var endTime: Calendar = Calendar.getInstance()
@@ -52,7 +53,8 @@ class SectionDetail :
         setContentView(R.layout.activity_section_detail)
 
         if (section == null) {
-            this.section = Section()
+            btnInterest.visibility = View.GONE
+            section = Section()
         }
         initfab()
 
@@ -86,7 +88,7 @@ class SectionDetail :
             val year = calendar.get(Calendar.YEAR)
             val datePickerDialog =
                 DatePickerDialog(this, this, year, month, day)
-            datePickerDialog.datePicker.minDate = startTime?.timeInMillis ?: Date().time
+            datePickerDialog.datePicker.minDate = startTime.timeInMillis
             dateType = DateType.END
             datePickerDialog.show()
         }
@@ -94,16 +96,16 @@ class SectionDetail :
 
     private fun initfab() {
         save_fab.setOnClickListener {
-            if (startTime?.timeInMillis ?: 1 >= endTime?.timeInMillis ?: 0) {
+            if (startTime.timeInMillis >= endTime.timeInMillis) {
                 endDateEditText.error = "A végző dátum nem lehet kisebb a kezdő dátumnál"
                 endDateEditText.requestFocus()
                 return@setOnClickListener
             }
             section?.name = editTextTextSectionName.text.toString()
-            section?.endTime = endTime?.let { it1 ->
+            section?.endTime = endTime.let { it1 ->
                 DateFormatter.shared.dateToGsonDateFormatDate(Date(it1.timeInMillis))
             }
-            section?.startTime = startTime?.let { it1 ->
+            section?.startTime = startTime.let { it1 ->
                 DateFormatter.shared.dateToGsonDateFormatDate(Date(it1.timeInMillis))
             }
             section?.let { it1 ->
@@ -124,6 +126,45 @@ class SectionDetail :
                 }
             }
         }
+        btnInterest.setOnClickListener {
+            TODO("Munka van vele")
+            if (HomeDashboard.USER?.sections?.contains(section) == true) {
+                section?.id?.let { it1 ->
+                    SectionNetworkManager.addUserToSection(
+                        HomeDashboard.Auth_KEY!!,
+                        HomeDashboard.USER!!, it1
+                    ).enqueue(object : Callback<Void> {
+                        override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                            if (response.isSuccessful) {
+                                HomeDashboard.USER!!.sections.add(section!!)
+                                btnInterest.text = getString(R.string.unsubscribe_btn)
+                            }
+                        }
+
+                        override fun onFailure(call: Call<Void>, t: Throwable) {
+                            toast(getString(R.string.Add_unsuccess))
+                        }
+                    })
+                }
+            } else {
+                section?.id?.let { it1 ->
+                    SectionNetworkManager.deleteUserFromSection(
+                        HomeDashboard.Auth_KEY!!, HomeDashboard.USER!!, it1
+                    ).enqueue(object : Callback<Void> {
+                        override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                            if (response.code() == 404) {
+                                HomeDashboard.USER!!.sections.remove(section!!)
+                                btnInterest.text = getString(R.string.interest_section_Button)
+                            }
+                        }
+
+                        override fun onFailure(call: Call<Void>, t: Throwable) {
+                            toast(getString(R.string.delete_unsuccess))
+                        }
+                    })
+                }
+            }
+        }
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
@@ -133,14 +174,14 @@ class SectionDetail :
 
         when (dateType) {
             DateType.START -> {
-                startTime?.set(Calendar.YEAR, year)
-                startTime?.set(Calendar.MONTH, month)
-                startTime?.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                startTime.set(Calendar.YEAR, year)
+                startTime.set(Calendar.MONTH, month)
+                startTime.set(Calendar.DAY_OF_MONTH, dayOfMonth)
             }
             DateType.END -> {
-                endTime?.set(Calendar.YEAR, year)
-                endTime?.set(Calendar.MONTH, month)
-                endTime?.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                endTime.set(Calendar.YEAR, year)
+                endTime.set(Calendar.MONTH, month)
+                endTime.set(Calendar.DAY_OF_MONTH, dayOfMonth)
             }
         }
 
@@ -154,10 +195,10 @@ class SectionDetail :
     override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
         when (dateType) {
             DateType.START -> {
-                startTime?.set(Calendar.HOUR_OF_DAY, hourOfDay)
-                startTime?.set(Calendar.MINUTE, minute)
+                startTime.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                startTime.set(Calendar.MINUTE, minute)
                 startDateEditText.setText(
-                    startTime?.let {
+                    startTime.let {
                         DateFormatter.shared.dateToFormattedTimestampStringWithoutSeconds(
                             Date(it.timeInMillis)
                         )
@@ -165,10 +206,10 @@ class SectionDetail :
                 )
             }
             DateType.END -> {
-                endTime?.set(Calendar.HOUR_OF_DAY, hourOfDay)
-                endTime?.set(Calendar.MINUTE, minute)
+                endTime.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                endTime.set(Calendar.MINUTE, minute)
                 endDateEditText.setText(
-                    endTime?.let {
+                    endTime.let {
                         DateFormatter.shared.dateToFormattedTimestampStringWithoutSeconds(
                             Date(it.timeInMillis)
                         )

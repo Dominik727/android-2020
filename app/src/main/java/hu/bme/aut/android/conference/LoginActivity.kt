@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2020
- * Created by Suszter Dominik on 2020. 12. 5
+ * Created by Suszter Dominik on 2020. 12. 6
  * Copyright © 2020. RR. All rights reserved.
  */
 
@@ -66,7 +66,7 @@ class LoginActivity : BaseActivity() {
 
                     val user = User(
                         null, etEmail.text.toString(), etPassword.text.toString(),
-                        etEmail.text.toString(), userType.USER, null, true
+                        etEmail.text.toString(), userType.USER, null, true, ArrayList()
                     )
 
                     UserNetworkManager.login(

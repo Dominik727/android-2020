@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright (c) 2020
-  ~ Created by Suszter Dominik on 2020. 12. 5
+  ~ Created by Suszter Dominik on 2020. 12. 6
   ~ Copyright © 2020. RR. All rights reserved.
   -->
 
@@ -24,4 +24,8 @@
     <string name="Section_detail_title">\"Szekció részletei - \"</string>
     <string name="New_section_title">Új szekció</string>
     <string name="Section_saved">Szekció elmentve!</string>
+    <string name="interest_section_Button">Érdekel az esemény</string>
+    <string name="unsubscribe_btn">Lejelentkezés</string>
+    <string name="Add_unsuccess">Hozzáadás sikertelen!</string>
+    <string name="error">Hiba történt!</string>
 </resources>
