@@ -117,10 +117,12 @@ class ListSections :
                                     call: Call<Void>,
                                     response: Response<Void>
                                 ) {
-                                    if (response.isSuccessful) {
+                                    if (response.code() == 404) {
                                         adapter.removeSection(adapter.getSectionId(section))
-                                        sectionAdded()
+                                        return
                                     }
+                                    onRefresh()
+                                    Toast.makeText(context, getString(R.string.delete_unsuccess), Toast.LENGTH_LONG).show()
                                 }
 
                                 override fun onFailure(

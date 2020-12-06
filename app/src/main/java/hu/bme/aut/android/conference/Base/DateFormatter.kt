@@ -28,5 +28,4 @@ class DateFormatter {
         val format = SimpleDateFormat("yyyy-MM-dd HH:mm")
         return format.format(date).replace(" ", "T")
     }
-
 }

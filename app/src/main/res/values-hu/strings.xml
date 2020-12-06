@@ -49,4 +49,7 @@
     <string name="end_time">Befejező Dátum</string>
     <string name="deleteSection">Törli a szekciót?</string>
     <string name="delete_unsuccess">Törlés sikertelen!</string>
+    <string name="Section_detail_title">\"Szekció részletei - \"</string>
+    <string name="New_section_title">Új szekció</string>
+    <string name="Section_saved">Szekció elmentve!</string>
 </resources>
