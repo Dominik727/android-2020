@@ -66,7 +66,7 @@ class LoginActivity : BaseActivity() {
 
                     val user = User(
                         null, etEmail.text.toString(), etPassword.text.toString(),
-                        etEmail.text.toString(), userType.USER, null, true, ArrayList()
+                        etEmail.text.toString(), userType.USER, null, true, ArrayList(), ArrayList()
                     )
 
                     UserNetworkManager.login(

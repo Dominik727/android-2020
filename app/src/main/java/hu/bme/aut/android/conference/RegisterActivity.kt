@@ -62,7 +62,7 @@ class RegisterActivity : BaseActivity() {
                 val user = User(
                     null, etEmail.text.toString(), etPassword.text.toString(),
                     etEmail.text.toString(), userType.USER,
-                    etPhone.text.toString(), false, ArrayList()
+                    etPhone.text.toString(), false, ArrayList(), ArrayList()
                 )
 
                 var attempt = 0
