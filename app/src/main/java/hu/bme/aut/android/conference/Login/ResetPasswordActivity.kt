@@ -1,9 +1,16 @@
-package hu.bme.aut.android.conference
+/*
+ * Copyright (c) 2020
+ * Created by Suszter Dominik on 2020. 12. 11
+ * Copyright © 2020. RR. All rights reserved.
+ */
+
+package hu.bme.aut.android.conference.Login
 
 import android.os.Bundle
 import android.text.TextUtils
 import com.google.firebase.auth.FirebaseAuth
 import hu.bme.aut.android.conference.Base.BaseActivity
+import hu.bme.aut.android.conference.R
 import kotlinx.android.synthetic.main.activity_reset_password.*
 
 class ResetPasswordActivity : BaseActivity() {

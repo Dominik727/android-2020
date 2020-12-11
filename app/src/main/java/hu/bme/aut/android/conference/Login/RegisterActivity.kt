@@ -1,16 +1,17 @@
 /*
  * Copyright (c) 2020
- * Created by Suszter Dominik on 2020. 12. 6
+ * Created by Suszter Dominik on 2020. 12. 11
  * Copyright © 2020. RR. All rights reserved.
  */
 
-package hu.bme.aut.android.conference
+package hu.bme.aut.android.conference.Login
 
 import android.os.Bundle
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import hu.bme.aut.android.conference.Base.BaseActivity
 import hu.bme.aut.android.conference.Network.UserNetworkManager
+import hu.bme.aut.android.conference.R
 import hu.bme.aut.android.conference.enum.userType
 import hu.bme.aut.android.conference.extensions.validateNonEmpty
 import hu.bme.aut.android.conference.model.User

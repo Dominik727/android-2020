@@ -29,7 +29,7 @@ interface SectionApi {
         @Path("id") id: Long
     ): Call<Void>
 
-    @DELETE("removeuser/{id")
+    @POST("removeuser/{id}")
     fun removeUserFromSection(
         @Header("Authorization") token: String,
         @Body user: User,

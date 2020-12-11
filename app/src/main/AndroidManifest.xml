@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Conference">
-        <activity android:name=".SplashScreenActivity"
+        <activity android:name=".Login.SplashScreenActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,14 +19,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Section.SectionDetail" />
+        <activity android:name="hu.bme.aut.android.conference.Dashboard.Section.SectionDetail" />
         <activity
-            android:name=".HomeDashboard"
+            android:name=".Dashboard.HomeDashboard"
             android:theme="@style/Theme.Conference.NoActionBar" />
-        <activity android:name=".ResetPasswordActivity" />
-        <activity android:name=".RegisterActivity" />
+        <activity android:name=".Login.ResetPasswordActivity" />
+        <activity android:name=".Login.RegisterActivity" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".Login.LoginActivity"
             android:theme="@style/Theme.Conference.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

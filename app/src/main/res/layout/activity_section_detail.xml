@@ -10,7 +10,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryBackground"
     android:orientation="vertical"
-    tools:context=".Section.SectionDetail">
+    tools:context=".Dashboard.Section.SectionDetail">
 
     <LinearLayout
         android:id="@+id/linearLayout"

@@ -4,19 +4,21 @@
  * Copyright © 2020. RR. All rights reserved.
  */
 
-package hu.bme.aut.android.conference.Section
+package hu.bme.aut.android.conference.Dashboard.Section
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Context
 import android.os.Bundle
 import android.text.format.DateFormat
+import android.util.AttributeSet
 import android.view.View
 import android.widget.DatePicker
 import android.widget.TimePicker
 import hu.bme.aut.android.conference.Adapter.SectionAdapter
 import hu.bme.aut.android.conference.Base.BaseActivity
 import hu.bme.aut.android.conference.Base.DateFormatter
-import hu.bme.aut.android.conference.HomeDashboard
+import hu.bme.aut.android.conference.Dashboard.HomeDashboard
 import hu.bme.aut.android.conference.Network.SectionNetworkManager
 import hu.bme.aut.android.conference.R
 import hu.bme.aut.android.conference.model.Section
@@ -40,7 +42,7 @@ class SectionDetail :
 
     companion object {
         var listener: SectionAddedListener? = null
-        var section: Section? = null
+        var section: Section = Section()
     }
 
     var dateType: DateType? = null
@@ -52,12 +54,9 @@ class SectionDetail :
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_section_detail)
 
-        if (section == null) {
-            btnInterest.visibility = View.GONE
-            section = Section()
-        }
-        if (HomeDashboard.USER?.let { section?.users?.contains(it) } == true) {
+        if (HomeDashboard.USER?.sections?.contains(section) == true) {
             btnInterest.text = getString(R.string.unsubscribe_btn)
+            section = HomeDashboard.USER!!.sections.first { it.id == section.id }.copy()
         }
         initfab()
 
@@ -131,7 +130,7 @@ class SectionDetail :
         }
         btnInterest.setOnClickListener {
             if (HomeDashboard.USER?.sections?.contains(section) != true) {
-                section?.id?.let { it1 ->
+                section.id?.let { it1 ->
                     SectionNetworkManager.addUserToSection(
                         HomeDashboard.Auth_KEY!!,
                         HomeDashboard.USER!!, it1
@@ -149,22 +148,22 @@ class SectionDetail :
                     })
                 }
             } else {
-                section?.id?.let { it1 ->
-                    SectionNetworkManager.deleteUserFromSection(
-                        HomeDashboard.Auth_KEY!!, HomeDashboard.USER!!, it1
-                    ).enqueue(object : Callback<Void> {
-                        override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                            if (response.code() == 404) {
-                                HomeDashboard.USER!!.sections.remove(section!!)
-                                btnInterest.text = getString(R.string.interest_section_Button)
-                            }
+                SectionNetworkManager.deleteUserFromSection(
+                    HomeDashboard.Auth_KEY!!,
+                    HomeDashboard.USER!!, section?.id!!
+                ).enqueue(object : Callback<Void> {
+                    override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                        if (response.code() == 404) {
+                            HomeDashboard.USER!!.sections.remove(section!!)
+                            btnInterest.text =
+                                getString(R.string.interest_section_Button)
                         }
+                    }
 
-                        override fun onFailure(call: Call<Void>, t: Throwable) {
-                            toast(getString(R.string.delete_unsuccess))
-                        }
-                    })
-                }
+                    override fun onFailure(call: Call<Void>, t: Throwable) {
+                        toast(getString(R.string.delete_unsuccess))
+                    }
+                })
             }
         }
     }

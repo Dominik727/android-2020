@@ -4,13 +4,13 @@
  * Copyright © 2020. RR. All rights reserved.
  */
 
-package hu.bme.aut.android.conference
+package hu.bme.aut.android.conference.Login
 
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.HandlerCompat.postDelayed
+import hu.bme.aut.android.conference.R
 
 class SplashScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

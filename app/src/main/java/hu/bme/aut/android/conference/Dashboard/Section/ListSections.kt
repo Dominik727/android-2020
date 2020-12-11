@@ -4,7 +4,7 @@
  * Copyright © 2020. RR. All rights reserved.
  */
 
-package hu.bme.aut.android.conference.Section
+package hu.bme.aut.android.conference.Dashboard.Section
 
 import android.content.Intent
 import android.os.Bundle
@@ -17,7 +17,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import hu.bme.aut.android.conference.Adapter.SectionAdapter
-import hu.bme.aut.android.conference.HomeDashboard
+import hu.bme.aut.android.conference.Dashboard.HomeDashboard
 import hu.bme.aut.android.conference.Network.SectionNetworkManager
 import hu.bme.aut.android.conference.R
 import hu.bme.aut.android.conference.model.Section
@@ -54,7 +54,7 @@ class ListSections :
     private fun initFab() {
         detail_fab.setOnClickListener {
             SectionDetail.listener = this
-            SectionDetail.section = null
+            SectionDetail.section = Section()
             val destination = Intent(context, SectionDetail()::class.java)
             startActivity(destination)
         }

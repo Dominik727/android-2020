@@ -1,10 +1,10 @@
 /*
  * Copyright (c) 2020
- * Created by Suszter Dominik on 2020. 12. 5
+ * Created by Suszter Dominik on 2020. 12. 11
  * Copyright © 2020. RR. All rights reserved.
  */
 
-package hu.bme.aut.android.conference
+package hu.bme.aut.android.conference.Dashboard
 
 import android.content.Intent
 import android.os.Bundle
@@ -18,14 +18,16 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import hu.bme.aut.android.conference.Adapter.SectionAdapter
 import hu.bme.aut.android.conference.Base.BaseActivity
+import hu.bme.aut.android.conference.Dashboard.Section.ListSections
+import hu.bme.aut.android.conference.Login.LoginActivity
 import hu.bme.aut.android.conference.Network.UserNetworkManager
-import hu.bme.aut.android.conference.Section.ListSections
+import hu.bme.aut.android.conference.R
 import hu.bme.aut.android.conference.model.User
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomeDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListener { // ktlint-disable max-line-length
+class HomeDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var drawer: DrawerLayout
     private lateinit var adapter: SectionAdapter

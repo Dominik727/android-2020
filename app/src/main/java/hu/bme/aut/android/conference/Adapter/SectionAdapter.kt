@@ -11,7 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import hu.bme.aut.android.conference.HomeDashboard
+import hu.bme.aut.android.conference.Dashboard.HomeDashboard
 import hu.bme.aut.android.conference.R
 import hu.bme.aut.android.conference.model.Section
 import kotlinx.android.synthetic.main.item_section.view.*
@@ -76,9 +76,6 @@ class SectionAdapter(private val listener: OnSectionSelectedListener) : Recycler
         }
         fun bind(section: Section?) {
             item = section
-            if (HomeDashboard.USER?.sections?.contains(item) == true) {
-                itemView.imageView.setImageDrawable(res.getDrawable(R.drawable.ic_baseline_done_24))
-            }
             itemView.SectionNameItemTextView.text = item?.name ?: ""
             itemView.SectionDateEndItemTextView.text = item?.startTime?.dropLast(10)
                 ?.replace("T", " ")

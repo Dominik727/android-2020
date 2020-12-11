@@ -26,6 +26,7 @@
         android:weightSum="0">
 
         <ImageView
+            android:id="@+id/calendar_image"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:src="@drawable/ic_calendar_time_event">
