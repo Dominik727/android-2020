@@ -55,20 +55,16 @@ class LoginActivity : BaseActivity() {
         }
 
         showProgressDialog()
-
         firebaseAuth
             .signInWithEmailAndPassword(etEmail.text.toString(), etPassword.text.toString())
             .addOnSuccessListener {
 
                 if (firebaseAuth.currentUser?.isEmailVerified!!) {
-
                     var attempt = 0
-
                     val user = User(
                         null, etEmail.text.toString(), etPassword.text.toString(),
                         etEmail.text.toString(), userType.USER, null, true, ArrayList(), ArrayList()
                     )
-
                     UserNetworkManager.login(
                         user
                     ).enqueue(object : Callback<Void> {
@@ -85,7 +81,6 @@ class LoginActivity : BaseActivity() {
                                 finish()
                             }
                         }
-
                         override fun onFailure(call: Call<Void>, t: Throwable) {
                             if (attempt > 3) {
                                 Thread.sleep(5_000)

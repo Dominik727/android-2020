@@ -18,8 +18,12 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import hu.bme.aut.android.conference.Adapter.SectionAdapter
 import hu.bme.aut.android.conference.Base.BaseActivity
+import hu.bme.aut.android.conference.Network.UserNetworkManager
 import hu.bme.aut.android.conference.Section.ListSections
 import hu.bme.aut.android.conference.model.User
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class HomeDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedListener { // ktlint-disable max-line-length
 
@@ -34,6 +38,21 @@ class HomeDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedLis
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_dashboard)
+
+        Auth_KEY?.let {
+            USER?.email?.let { it1 ->
+                UserNetworkManager.getUser(it, it1).enqueue(object : Callback<User> {
+                    override fun onResponse(call: Call<User>, response: Response<User>) {
+                        if (response.isSuccessful) {
+                            USER = response.body()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<User>, t: Throwable) {
+                    }
+                })
+            }
+        }
 
         val toolbar: Toolbar = findViewById(R.id.toolbar3)
         setSupportActionBar(toolbar)

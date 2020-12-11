@@ -28,4 +28,8 @@ object UserNetworkManager {
     fun login(user: User): Call<Void> {
         return USER_API.login(user)
     }
+
+    fun getUser(token: String, email: String): Call<User> {
+        return USER_API.getUser(token, email)
+    }
 }

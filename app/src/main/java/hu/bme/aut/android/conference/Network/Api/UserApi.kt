@@ -8,9 +8,7 @@ package hu.bme.aut.android.conference.Network.Api
 
 import hu.bme.aut.android.conference.model.User
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface UserApi {
 
@@ -19,4 +17,7 @@ interface UserApi {
 
     @POST("/login")
     fun login(@Body user: User): Call<Void>
+
+    @GET("users/{email}")
+    fun getUser(@Header("Authorization") token: String, @Path("email") email: String): Call<User>
 }

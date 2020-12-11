@@ -56,6 +56,9 @@ class SectionDetail :
             btnInterest.visibility = View.GONE
             section = Section()
         }
+        if (HomeDashboard.USER?.let { section?.users?.contains(it) } == true) {
+            btnInterest.text = getString(R.string.unsubscribe_btn)
+        }
         initfab()
 
         adapter = SectionAdapter(this)
@@ -127,8 +130,7 @@ class SectionDetail :
             }
         }
         btnInterest.setOnClickListener {
-            TODO("Munka van vele")
-            if (HomeDashboard.USER?.sections?.contains(section) == true) {
+            if (HomeDashboard.USER?.sections?.contains(section) != true) {
                 section?.id?.let { it1 ->
                     SectionNetworkManager.addUserToSection(
                         HomeDashboard.Auth_KEY!!,
