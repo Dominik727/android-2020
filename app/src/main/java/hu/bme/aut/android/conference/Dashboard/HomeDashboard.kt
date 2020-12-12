@@ -18,11 +18,15 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import hu.bme.aut.android.conference.Adapter.SectionAdapter
 import hu.bme.aut.android.conference.Base.BaseActivity
-import hu.bme.aut.android.conference.Dashboard.Section.ListSections
+import hu.bme.aut.android.conference.Dashboard.Lecture.ListLectureFragment
+import hu.bme.aut.android.conference.Dashboard.Rooms.ListRoomFragment
+import hu.bme.aut.android.conference.Dashboard.Section.ListSectionsFragment
 import hu.bme.aut.android.conference.Login.LoginActivity
 import hu.bme.aut.android.conference.Network.UserNetworkManager
 import hu.bme.aut.android.conference.R
 import hu.bme.aut.android.conference.model.User
+import kotlinx.android.synthetic.main.nav_header.*
+import kotlinx.android.synthetic.main.nav_header.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -72,22 +76,26 @@ class HomeDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedLis
         drawer.addDrawerListener(toogle)
         toogle.syncState()
 
-        supportFragmentManager.beginTransaction().replace(R.id.fragmant_layout, ListSections()).commit() // ktlint-disable max-line-length
+        val headerView = navigationView.getHeaderView(0)
+        headerView.userNameTextView.text = USER?.username ?: ""
+        headerView.userEmailTextView.text = USER?.email ?: ""
+
+        supportFragmentManager.beginTransaction().replace(R.id.fragmant_layout, ListSectionsFragment()).commit() // ktlint-disable max-line-length
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.nav_surgeryes -> supportFragmentManager.beginTransaction().replace(
+            R.id.nav_sections -> supportFragmentManager.beginTransaction().replace(
                 R.id.fragmant_layout,
-                ListSections()
+                ListSectionsFragment()
             ).commit()
-            R.id.nav_profile -> supportFragmentManager.beginTransaction().replace(
+            R.id.nav_lectures -> supportFragmentManager.beginTransaction().replace(
                 R.id.fragmant_layout,
-                ListSections()
+                ListLectureFragment()
             ).commit()
-            R.id.nav_about -> supportFragmentManager.beginTransaction().replace(
+            R.id.nav_rooms -> supportFragmentManager.beginTransaction().replace(
                 R.id.fragmant_layout,
-                ListSections()
+                ListRoomFragment()
             ).commit()
             R.id.nav_sign_out -> {
                 val builder = AlertDialog.Builder(this)

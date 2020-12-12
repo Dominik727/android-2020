@@ -56,4 +56,6 @@
     <string name="unsubscribe_btn">Lejelentkezés</string>
     <string name="Add_unsuccess">Hozzáadás sikertelen!</string>
     <string name="error">Hiba történt!</string>
+    <string name="endTextErrorText">Kérem töltse ki a kezdő dátumot!</string>
+    <string name="startTextErrorText">A végző dátum nem lehet kisebb a kezdő dátumnál</string>
 </resources>

@@ -8,11 +8,8 @@ package hu.bme.aut.android.conference.Dashboard.Section
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import android.content.Context
 import android.os.Bundle
 import android.text.format.DateFormat
-import android.util.AttributeSet
-import android.view.View
 import android.widget.DatePicker
 import android.widget.TimePicker
 import hu.bme.aut.android.conference.Adapter.SectionAdapter
@@ -61,8 +58,21 @@ class SectionDetail :
         initfab()
 
         adapter = SectionAdapter(this)
-        if (section!!.name != null) this.title =
-            getString(R.string.Section_detail_title) + section!!.name else {
+        if (section.name != null) {
+            this.title =
+                getString(R.string.Section_detail_title) + section.name
+            startDateEditText.setText(
+                section.startTime?.let {
+                    DateFormatter.shared.formatStringToShow(it)
+                }
+            )
+            endDateEditText.setText(
+                section.endTime?.let {
+                    DateFormatter.shared.formatStringToShow(it)
+                }
+            )
+            editTextTextSectionName.setText(section.name)
+        } else {
             this.title = getString(R.string.New_section_title)
         }
 
@@ -80,7 +90,7 @@ class SectionDetail :
 
         endDateEditText.setOnClickListener {
             if (startDateEditText.text.isEmpty()) {
-                endDateEditText.error = "Kérem töltse ki a kezdő dátumot!"
+                endDateEditText.error = getString(R.string.endTextErrorText)
                 endDateEditText.requestFocus()
                 return@setOnClickListener
             }
@@ -99,7 +109,7 @@ class SectionDetail :
     private fun initfab() {
         save_fab.setOnClickListener {
             if (startTime.timeInMillis >= endTime.timeInMillis) {
-                endDateEditText.error = "A végző dátum nem lehet kisebb a kezdő dátumnál"
+                endDateEditText.error = getString(R.string.startTextErrorText)
                 endDateEditText.requestFocus()
                 return@setOnClickListener
             }
@@ -150,7 +160,7 @@ class SectionDetail :
             } else {
                 SectionNetworkManager.deleteUserFromSection(
                     HomeDashboard.Auth_KEY!!,
-                    HomeDashboard.USER!!, section?.id!!
+                    HomeDashboard.USER!!, section.id!!
                 ).enqueue(object : Callback<Void> {
                     override fun onResponse(call: Call<Void>, response: Response<Void>) {
                         if (response.code() == 404) {
@@ -223,7 +233,7 @@ class SectionDetail :
     override fun onSectionSelected(section: Section) {
     }
 
-    override fun OnLongSectionListener(section: Section) {
+    override fun onLongSectionListener(section: Section) {
     }
 
     interface SectionAddedListener {

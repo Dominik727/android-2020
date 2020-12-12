@@ -26,7 +26,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ListSections :
+class ListSectionsFragment :
     Fragment(),
     SectionAdapter.OnSectionSelectedListener,
     SectionDetail.SectionAddedListener,
@@ -105,7 +105,7 @@ class ListSections :
         startActivity(destination)
     }
 
-    override fun OnLongSectionListener(section: Section) {
+    override fun onLongSectionListener(section: Section) {
         val builder = context?.let { AlertDialog.Builder(it) }
         builder?.setTitle(getString(R.string.deleteSection))
         builder?.setCancelable(true)

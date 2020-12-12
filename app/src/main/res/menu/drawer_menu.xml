@@ -10,15 +10,15 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
-        <item android:id="@+id/nav_surgeryes"
+        <item android:id="@+id/nav_sections"
             android:icon="@drawable/ic_baseline_add_24"
             android:title="@string/menu_home">
         </item>
-        <item android:id="@+id/nav_profile"
+        <item android:id="@+id/nav_lectures"
             android:icon="@drawable/ic_baseline_add_24"
             android:title="@string/app_name">
         </item>
-        <item android:id="@+id/nav_about"
+        <item android:id="@+id/nav_rooms"
             android:icon="@drawable/ic_baseline_add_24"
             android:title="@string/app_name">
         </item>
