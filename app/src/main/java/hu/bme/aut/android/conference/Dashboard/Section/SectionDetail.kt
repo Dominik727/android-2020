@@ -59,20 +59,8 @@ class SectionDetail :
         initfab()
 
         adapter = SectionAdapter(this)
-        if (section.name != null) {
-            this.title =
-                getString(R.string.Section_detail_title) + section.name
-            startDateEditText.setText(
-                section.startTime?.let {
-                    DateFormatter.shared.formatStringToShow(it)
-                }
-            )
-            endDateEditText.setText(
-                section.endTime?.let {
-                    DateFormatter.shared.formatStringToShow(it)
-                }
-            )
-            editTextTextSectionName.setText(section.name)
+        if (section.id != null) {
+            disableFields()
         } else {
             this.title = getString(R.string.New_section_title)
             btnInterest.visibility = View.GONE
@@ -165,8 +153,8 @@ class SectionDetail :
                     HomeDashboard.USER!!, section.id!!
                 ).enqueue(object : Callback<Void> {
                     override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                        if (response.isSuccessful) {
-                            HomeDashboard.USER!!.sections.remove(section!!)
+                        if (response.isSuccessful || response.code() == 200) {
+                            HomeDashboard.USER!!.sections.remove(section)
                             btnInterest.text =
                                 getString(R.string.interest_section_Button)
                         }
@@ -230,6 +218,26 @@ class SectionDetail :
                 )
             }
         }
+    }
+
+    private fun disableFields() {
+        this.title =
+            getString(R.string.Section_detail_title) + section.name
+        startDateEditText.setText(
+            section.startTime?.let {
+                DateFormatter.shared.formatStringToShow(it)
+            }
+        )
+        endDateEditText.setText(
+            section.endTime?.let {
+                DateFormatter.shared.formatStringToShow(it)
+            }
+        )
+        editTextTextSectionName.setText(section.name)
+        editTextTextSectionName.isEnabled = false
+        endDateEditText.isEnabled = false
+        startDateEditText.isEnabled = false
+        btnInterest.visibility = View.VISIBLE
     }
 
     override fun onSectionSelected(section: Section) {

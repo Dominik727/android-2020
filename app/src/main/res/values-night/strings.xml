@@ -35,4 +35,5 @@
     <string name="section_menu">Szekciók</string>
     <string name="select_section">Kérem válasszon szekciót!</string>
     <string name="select_room">Kérem válasszon termet!</string>
+    <string name="lecture_saved">Óra elmentve</string>
 </resources>

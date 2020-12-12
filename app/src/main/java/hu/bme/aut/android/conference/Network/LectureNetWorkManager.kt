@@ -32,4 +32,12 @@ object LectureNetWorkManager {
     fun getAllLecture(token: String): Call<List<Lecture>> {
         return LECTURE_API.getAllRoom(token)
     }
+
+    fun newLecture(token: String, lecture: Lecture): Call<Void> {
+        return LECTURE_API.newLecture(token, lecture)
+    }
+
+    fun deleteLecture(token: String, id: Long): Call<Void> {
+        return LECTURE_API.deleteLecture(token, id)
+    }
 }

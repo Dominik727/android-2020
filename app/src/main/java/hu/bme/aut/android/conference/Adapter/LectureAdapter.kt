@@ -46,11 +46,11 @@ class LectureAdapter(private val listener: OnLectureSelectedListener) :
         notifyItemInserted(lectures.size - 1)
     }
 
-    fun removeAllSection() {
+    fun removeAllLecture() {
         lectures = ArrayList()
     }
 
-    fun removeSection(position: Int) {
+    fun removeLecture(position: Int) {
         lectures.removeAt(position)
         notifyItemRangeChanged(position, itemCount)
         notifyItemRemoved(position)
@@ -71,10 +71,10 @@ class LectureAdapter(private val listener: OnLectureSelectedListener) :
 
         init {
             itemView.setOnClickListener {
-                item?.let { it1 -> listener.onSectionSelected(it1) }
+                item?.let { it1 -> listener.onLectureSelected(it1) }
             }
             itemView.setOnLongClickListener {
-                item?.let { it1 -> listener.onLongSectionListener(it1) }
+                item?.let { it1 -> listener.onLongLectureListener(it1) }
                 return@setOnLongClickListener false
             }
         }
@@ -85,7 +85,7 @@ class LectureAdapter(private val listener: OnLectureSelectedListener) :
     }
 
     interface OnLectureSelectedListener {
-        fun onSectionSelected(lecture: Lecture)
-        fun onLongSectionListener(lecture: Lecture)
+        fun onLectureSelected(lecture: Lecture)
+        fun onLongLectureListener(lecture: Lecture)
     }
 }

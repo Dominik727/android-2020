@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -28,7 +29,7 @@ import retrofit2.Response
 class ListLectureFragment :
     Fragment(),
     SwipeRefreshLayout.OnRefreshListener,
-    LectureAdapter.OnLectureSelectedListener {
+    LectureAdapter.OnLectureSelectedListener, LectureDetailActivity.LecturenAddedListener {
 
     private lateinit var adapter: LectureAdapter
 
@@ -55,13 +56,15 @@ class ListLectureFragment :
         progressbarVisibility(true)
         MainRecyclerView.layoutManager = LinearLayoutManager(this.context)
         adapter = LectureAdapter(this)
-        adapter.removeAllSection()
+        adapter.removeAllLecture()
         onLectureAdded()
         MainRecyclerView.adapter = adapter
     }
 
     private fun initFab() {
         detail_fab.setOnClickListener {
+            LectureDetailActivity.listener = this
+            LectureDetailActivity.lecture = Lecture()
             val destination = Intent(context, LectureDetailActivity()::class.java)
             startActivity(destination)
         }
@@ -95,14 +98,67 @@ class ListLectureFragment :
     }
 
     override fun onRefresh() {
-        TODO("Not yet implemented")
+        loadRecyclerViewData()
+        progressbarVisibility(false)
     }
 
-    override fun onSectionSelected(lecture: Lecture) {
-        TODO("Not yet implemented")
+    private fun loadRecyclerViewData() {
+        swipe_container.isRefreshing = true
+        lectureAdded()
+        swipe_container.isRefreshing = false
     }
 
-    override fun onLongSectionListener(lecture: Lecture) {
-        TODO("Not yet implemented")
+    override fun onLectureSelected(lecture: Lecture) {
+        LectureDetailActivity.listener = this
+        LectureDetailActivity.lecture = lecture
+        val destination = Intent(context, LectureDetailActivity()::class.java)
+        startActivity(destination)
+    }
+
+    override fun onLongLectureListener(lecture: Lecture) {
+        val builder = context?.let { AlertDialog.Builder(it) }
+        builder?.setTitle(getString(R.string.deleteSection))
+        builder?.setCancelable(true)
+        builder?.apply {
+            setNegativeButton(
+                getString(R.string.no)
+            ) { _, _ ->
+            }
+            setPositiveButton(
+                getString(R.string.yes)
+            ) { _, _ ->
+                lecture.id?.let {
+                    HomeDashboard.Auth_KEY?.let { it1 ->
+                        LectureNetWorkManager.deleteLecture(it1, it).enqueue(object : Callback<Void> {
+                            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                                if (response.code() == 404) {
+                                    adapter.removeLecture(adapter.getLectureId(lecture))
+                                    return
+                                }
+                                onRefresh()
+                                Toast.makeText(
+                                    context, getString(R.string.delete_unsuccess),
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+
+                            override fun onFailure(call: Call<Void>, t: Throwable) {
+                                Toast.makeText(
+                                    context, getString(R.string.delete_unsuccess),
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+
+                        })
+                    }
+                }
+            }
+        }
+        builder?.show()
+    }
+
+    override fun lectureAdded() {
+        initRecyclerView()
+        progressbarVisibility(false)
     }
 }
