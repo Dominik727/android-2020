@@ -165,7 +165,7 @@ class SectionDetail :
                     HomeDashboard.USER!!, section.id!!
                 ).enqueue(object : Callback<Void> {
                     override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                        if (response.code() == 404) {
+                        if (response.isSuccessful) {
                             HomeDashboard.USER!!.sections.remove(section!!)
                             btnInterest.text =
                                 getString(R.string.interest_section_Button)
