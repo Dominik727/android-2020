@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2020
+  ~ Created by Suszter Dominik on 2020. 12. 12
+  ~ Copyright © 2020. RR. All rights reserved.
+  -->
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Dashboard.Lecture.LectureDetailActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/lectureName"
+            style="@style/MaterialAlertDialog.MaterialComponents.Title.Icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Előadás neve"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="16dp" />
+
+        <EditText
+            android:id="@+id/editTextTextLecturenName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Előadás neve"
+            android:inputType="text"
+            tools:layout_editor_absoluteX="20dp"
+            tools:layout_editor_absoluteY="47dp" />
+
+        <TextView
+            android:id="@+id/textViewTextLectureDescription"
+            android:layout_width="match_parent"
+            style="@style/MaterialAlertDialog.MaterialComponents.Title.Icon"
+            android:layout_height="wrap_content"
+            android:text="Előadásról rövid leírás" />
+
+        <EditText
+            android:id="@+id/editTextTextLectureDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:singleLine="false"
+            android:hint="Előadásról rövid leírás"
+            />
+
+        <TextView
+            android:id="@+id/textViewTextLecturePrice"
+            android:layout_width="match_parent"
+            style="@style/MaterialAlertDialog.MaterialComponents.Title.Icon"
+            android:layout_height="wrap_content"
+            android:text="Ára" />
+
+        <EditText
+            android:id="@+id/editTextTextLecturePrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:singleLine="false"
+            android:hint="Ára"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            style="@style/MaterialAlertDialog.MaterialComponents.Title.Icon"
+            android:layout_height="wrap_content"
+            android:text="Szekció választása" />
+
+        <Spinner
+            android:id="@+id/section_spinner"
+            style="@style/spinnerItemStyle"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:spinnerMode="dialog" />
+
+        <TextView
+            android:layout_width="match_parent"
+            style="@style/MaterialAlertDialog.MaterialComponents.Title.Icon"
+            android:layout_height="wrap_content"
+            android:text="Terem választása" />
+
+        <Spinner
+            android:id="@+id/room_spinner"
+            style="@style/spinnerItemStyle"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:spinnerMode="dialog" />
+
+        <Button
+            android:id="@+id/btnInterest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:padding="12dp"
+            android:text="@string/interest_section_Button" />
+
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/save_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/ic_baseline_save_24" />
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

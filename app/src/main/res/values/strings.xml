@@ -62,4 +62,9 @@
     <string name="startTextErrorText">A végző dátum nem lehet kisebb a kezdő dátumnál</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="rooms_menu">Termek</string>
+    <string name="lectures_menu">Előadások</string>
+    <string name="section_menu">Szekciók</string>
+    <string name="select_section">Kérem válasszon szekciót!</string>
+    <string name="select_room">Kérem válasszon termet!</string>
 </resources>

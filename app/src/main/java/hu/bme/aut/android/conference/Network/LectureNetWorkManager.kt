@@ -13,7 +13,7 @@ import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object LectureManager {
+object LectureNetWorkManager {
     private val retrofit: Retrofit
     private val LECTURE_API: LectureApi
 

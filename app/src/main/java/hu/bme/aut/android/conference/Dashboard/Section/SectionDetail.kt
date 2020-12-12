@@ -10,6 +10,7 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
 import android.text.format.DateFormat
+import android.view.View
 import android.widget.DatePicker
 import android.widget.TimePicker
 import hu.bme.aut.android.conference.Adapter.SectionAdapter
@@ -74,6 +75,7 @@ class SectionDetail :
             editTextTextSectionName.setText(section.name)
         } else {
             this.title = getString(R.string.New_section_title)
+            btnInterest.visibility = View.GONE
         }
 
         startDateEditText.setOnClickListener {
@@ -113,14 +115,14 @@ class SectionDetail :
                 endDateEditText.requestFocus()
                 return@setOnClickListener
             }
-            section?.name = editTextTextSectionName.text.toString()
-            section?.endTime = endTime.let { it1 ->
+            section.name = editTextTextSectionName.text.toString()
+            section.endTime = endTime.let { it1 ->
                 DateFormatter.shared.dateToGsonDateFormatDate(Date(it1.timeInMillis))
             }
-            section?.startTime = startTime.let { it1 ->
+            section.startTime = startTime.let { it1 ->
                 DateFormatter.shared.dateToGsonDateFormatDate(Date(it1.timeInMillis))
             }
-            section?.let { it1 ->
+            section.let { it1 ->
                 HomeDashboard.Auth_KEY?.let { it2 ->
                     SectionNetworkManager.newSection(it2, it1).enqueue(object : Callback<Void> {
                         override fun onResponse(call: Call<Void>, response: Response<Void>) {

@@ -7,7 +7,13 @@
 package hu.bme.aut.android.conference.model
 
 data class Lecture(
-    val id: Long,
-    val section: Section,
-    val room: Room
-)
+    val id: Long?,
+    val name: String?,
+    val description: String?,
+    val price: String?,
+    val section: Section?,
+    val room: Room?
+) {
+    constructor() : this(null, null, null, null, null, null)
+}
+

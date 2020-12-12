@@ -17,7 +17,8 @@ import hu.bme.aut.android.conference.model.Section
 import kotlinx.android.synthetic.main.item_section.view.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*
 
-class SectionAdapter(private val listener: OnSectionSelectedListener) : RecyclerView.Adapter<SectionAdapter.SectionViewHolder>() { // ktlint-disable max-line-length
+class SectionAdapter(private val listener: OnSectionSelectedListener) :
+    RecyclerView.Adapter<SectionAdapter.SectionViewHolder>() {
 
     private var sections: MutableList<Section> = ArrayList()
     private lateinit var res: Resources
@@ -37,7 +38,6 @@ class SectionAdapter(private val listener: OnSectionSelectedListener) : Recycler
     override fun getItemCount(): Int = sections.size
 
     fun addSection(section: Section) {
-
         sections.add(section)
         notifyItemInserted(sections.size - 1)
     }
