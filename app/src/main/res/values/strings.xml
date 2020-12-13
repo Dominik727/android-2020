@@ -83,4 +83,9 @@
     <string name="lectures">Előadások</string>
     <string name="rooms">Termek</string>
     <string name="title_activity_maps">Map</string>
+    <string name="writeEmail">írd be az email címed!</string>
+    <string name="forgetPassword">Jelszóemlékeztető</string>
+    <string name="sendsuccess">Kiküldés sikeres</string>
+    <string name="userNotFound">Nincs ilyen fiók!</string>
+    <string name="Required">Kötelező</string>
 </resources>

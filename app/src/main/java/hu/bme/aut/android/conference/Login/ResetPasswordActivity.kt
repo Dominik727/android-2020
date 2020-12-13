@@ -27,14 +27,17 @@ class ResetPasswordActivity : BaseActivity() {
             val email = edtResetEmail.text.toString().trim()
 
             if (TextUtils.isEmpty(email)) {
-                toast("írd be az email címed!")
+                toast(getString(R.string.writeEmail))
             } else {
                 mAuth.sendPasswordResetEmail(email)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            showBaseAlertDialog("Jelszóemlékeztető", "Kiküldés sikeres")
+                            showBaseAlertDialog(
+                                getString(R.string.forgetPassword),
+                                getString(R.string.sendsuccess)
+                            )
                         } else {
-                            toast("Nincs ilyen fiók!")
+                            toast(getString(R.string.userNotFound))
                         }
                     }
             }
