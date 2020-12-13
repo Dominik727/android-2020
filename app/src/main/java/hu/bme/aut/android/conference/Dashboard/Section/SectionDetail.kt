@@ -139,6 +139,7 @@ class SectionDetail :
                             if (response.isSuccessful) {
                                 HomeDashboard.USER!!.sections.add(section)
                                 btnInterest.text = getString(R.string.unsubscribe_btn)
+                                listener?.sectionAdded()
                             }
                         }
 

@@ -109,6 +109,7 @@ class LectureDetailActivity : BaseActivity(), AdapterView.OnItemSelectedListener
         }
 
         btnInterest.setOnClickListener {
+            showProgressDialog()
             if (HomeDashboard.USER?.lectures?.contains(lecture) != true) {
                 lecture.id?.let { lectureID ->
                     HomeDashboard.Auth_KEY?.let { token ->
@@ -126,11 +127,16 @@ class LectureDetailActivity : BaseActivity(), AdapterView.OnItemSelectedListener
                                             lecture
                                         )
                                         btnInterest.text = getString(R.string.unsubscribe_btn)
+                                        listener?.lectureAdded()
+                                    } else {
+                                        toast(getString(R.string.Add_unsuccess))
                                     }
+                                    hideProgressDialog()
                                 }
 
                                 override fun onFailure(call: Call<Void>, t: Throwable) {
                                     toast(getString(R.string.Add_unsuccess))
+                                    hideProgressDialog()
                                 }
                             })
                         }
@@ -148,11 +154,16 @@ class LectureDetailActivity : BaseActivity(), AdapterView.OnItemSelectedListener
                                     HomeDashboard.USER!!.lectures.remove(lecture)
                                     btnInterest.text =
                                         getString(R.string.interest_lecture)
+                                    listener?.lectureAdded()
+                                } else {
+                                    toast(getString(R.string.delete_unsuccess))
                                 }
+                                hideProgressDialog()
                             }
 
                             override fun onFailure(call: Call<Void>, t: Throwable) {
                                 toast(getString(R.string.delete_unsuccess))
+                                hideProgressDialog()
                             }
                         })
                     }
@@ -178,6 +189,7 @@ class LectureDetailActivity : BaseActivity(), AdapterView.OnItemSelectedListener
             section_spinner.setSelection(sections.indexOfFirst { it.id == lecture.section!!.id })
         } else {
             lecture.section = sections.first()
+            if (sections.isNotEmpty()) lecture.section = sections.first()
         }
     }
 
@@ -197,7 +209,7 @@ class LectureDetailActivity : BaseActivity(), AdapterView.OnItemSelectedListener
         if (lecture.room != null) {
             section_spinner.setSelection(rooms.indexOfFirst { it.id == lecture.room!!.id })
         } else {
-            lecture.section = sections.first()
+            if (rooms.isNotEmpty()) lecture.room = rooms.first()
         }
     }
 
