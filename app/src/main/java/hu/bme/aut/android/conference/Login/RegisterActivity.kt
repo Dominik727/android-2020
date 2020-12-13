@@ -66,7 +66,9 @@ class RegisterActivity : BaseActivity() {
                     etPhone.text.toString(), false, ArrayList(), ArrayList()
                 )
 
-                if (etEmail.text.toString() == "suszterdominik@gmail.com") {
+                if (etEmail.text.toString() == "suszterdominik@gmail.com" ||
+                    etEmail.text.toString() == "suszterd@edu.bme.hu"
+                ) {
                     user.role = userType.ADMIN
                 }
 
