@@ -7,13 +7,13 @@
 package hu.bme.aut.android.conference.model
 
 data class Room(
-    val id: Long?,
-    val capacity: Int?,
-    val name: String?,
-    val lectures: ArrayList<Lecture>?,
-    val zipCode: Int?,
-    val address: String?,
-    val city: String?
+        val id: Long?,
+        var capacity: Int?,
+        var name: String?,
+        val lectures: ArrayList<Lecture>?,
+        var zipCode: Int?,
+        var address: String?,
+        var city: String?
 ) {
     constructor() : this(null, null, null, null, null, null, null)
 }

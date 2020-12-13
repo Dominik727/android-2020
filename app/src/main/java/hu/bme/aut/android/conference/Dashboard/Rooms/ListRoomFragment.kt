@@ -6,6 +6,7 @@
 
 package hu.bme.aut.android.conference.Dashboard.Rooms
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,7 +18,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import hu.bme.aut.android.conference.Adapter.RoomAdapter
 import hu.bme.aut.android.conference.Dashboard.HomeDashboard
-import hu.bme.aut.android.conference.Network.LectureNetWorkManager
 import hu.bme.aut.android.conference.Network.RoomNetWorkManager
 import hu.bme.aut.android.conference.R
 import hu.bme.aut.android.conference.model.Room
@@ -26,7 +26,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ListRoomFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, RoomAdapter.OnRoomSelectedListener, RoomDetailActivity.RoomnAddedListener {
+class ListRoomFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, RoomAdapter.OnRoomSelectedListener, RoomDetailActivity.roomnAddedListener {
 
     private lateinit var adapter: RoomAdapter
 
@@ -47,6 +47,16 @@ class ListRoomFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, RoomA
         super.onViewCreated(view, savedInstanceState)
 
         initRecyclerView()
+        initFab()
+    }
+
+    private fun initFab() {
+        detail_fab.setOnClickListener {
+            RoomDetailActivity.listener = this
+            RoomDetailActivity.room = Room()
+            val destination = Intent(context, RoomDetailActivity()::class.java)
+            startActivity(destination)
+        }
     }
 
     private fun initRecyclerView() {
@@ -86,14 +96,26 @@ class ListRoomFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, RoomA
     }
 
     override fun onRefresh() {
+        loadRecyclerViewData()
+        progressbarVisibility(false)
+    }
+
+    private fun loadRecyclerViewData() {
+        swipe_container.isRefreshing = true
+        roomAdded()
+        swipe_container.isRefreshing = false
     }
 
     override fun onRoomSelected(room: Room) {
+        RoomDetailActivity.listener = this
+        RoomDetailActivity.room = room
+        val destination = Intent(context, RoomDetailActivity()::class.java)
+        startActivity(destination)
     }
 
     override fun onLongRoomListener(room: Room) {
         val builder = context?.let { AlertDialog.Builder(it) }
-        builder?.setTitle(getString(R.string.deleteSection))
+        builder?.setTitle(getString(R.string.deleteRoom))
         builder?.setCancelable(true)
         builder?.apply {
             setNegativeButton(
@@ -136,6 +158,7 @@ class ListRoomFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, RoomA
     }
 
     override fun roomAdded() {
-        TODO("Not yet implemented")
+        initRecyclerView()
+        progressbarVisibility(false)
     }
 }

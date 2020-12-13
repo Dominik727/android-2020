@@ -21,7 +21,7 @@ object UserNetworkManager {
         USER_API = retrofit.create(UserApi::class.java)
     }
 
-    fun newUser(user: User): Call<Boolean> {
+    fun newUser(user: User): Call<Void> {
         return USER_API.newUser(user)
     }
 

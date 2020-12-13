@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import hu.bme.aut.android.conference.Dashboard.HomeDashboard
 import hu.bme.aut.android.conference.R
 import hu.bme.aut.android.conference.model.Lecture
 import kotlinx.android.synthetic.main.activity_section_detail.view.*
@@ -81,6 +82,11 @@ class LectureAdapter(private val listener: OnLectureSelectedListener) :
         fun bind(lecture: Lecture?) {
             item = lecture
             itemView.SectionNameItemTextView.text = item?.name ?: ""
+            if (HomeDashboard.USER?.lectures?.contains(lecture) != true) {
+                itemView.UserIsSelected.visibility = View.INVISIBLE
+            } else {
+                itemView.UserIsSelected.visibility = View.VISIBLE
+            }
         }
     }
 

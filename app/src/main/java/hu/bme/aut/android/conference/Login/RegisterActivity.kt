@@ -68,13 +68,17 @@ class RegisterActivity : BaseActivity() {
 
                 var attempt = 0
 
-                UserNetworkManager.newUser(user).enqueue(object : Callback<Boolean> {
-                    override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
-                        toast(getString(R.string.regist_successful))
-                        loginToClick()
+                UserNetworkManager.newUser(user).enqueue(object : Callback<Void> {
+                    override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                        if (response.isSuccessful) {
+                            toast(getString(R.string.regist_successful))
+                            loginToClick()
+                            return
+                        }
+                        toast(getString(R.string.error_please_try_again))
                     }
 
-                    override fun onFailure(call: Call<Boolean>, t: Throwable) {
+                    override fun onFailure(call: Call<Void>, t: Throwable) {
                         if (attempt > 3) {
                             Thread.sleep(1_000)
                             toast(getString(R.string.error_please_try_again))

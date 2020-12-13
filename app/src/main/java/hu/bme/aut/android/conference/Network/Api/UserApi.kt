@@ -12,8 +12,8 @@ import retrofit2.http.*
 
 interface UserApi {
 
-    @POST("users/new")
-    fun newUser(@Body user: User): Call<Boolean>
+    @POST("users/signup")
+    fun newUser(@Body user: User): Call<Void>
 
     @POST("/login")
     fun login(@Body user: User): Call<Void>

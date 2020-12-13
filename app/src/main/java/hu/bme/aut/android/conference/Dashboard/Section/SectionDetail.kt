@@ -233,12 +233,17 @@ class SectionDetail :
                 DateFormatter.shared.formatStringToShow(it)
             }
         )
+        save_fab.visibility = View.GONE
         editTextTextSectionName.setText(section.name)
         editTextTextSectionName.isEnabled = false
         endDateEditText.isEnabled = false
         startDateEditText.isEnabled = false
         btnInterest.visibility = View.VISIBLE
-        btnInterest.text = getString(R.string.user_add_to_lecture)
+        if (HomeDashboard.USER?.sections?.contains(section) == true) {
+            btnInterest.text = getString(R.string.unsubscribe_btn)
+        } else {
+            btnInterest.text = getString(R.string.user_add_to_lecture)
+        }
     }
 
     override fun onSectionSelected(section: Section) {

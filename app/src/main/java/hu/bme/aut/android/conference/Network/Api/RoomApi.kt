@@ -15,7 +15,7 @@ interface RoomApi {
     @GET("all")
     fun getAllRoom(@Header("Authorization") token: String): Call<List<Room>>
 
-    @POST("delete/{id}")
+    @DELETE("delete/{id}")
     fun deleteRoom(@Header("Authorization") token: String, @Path("id") id: Long): Call<Void>
 
     @POST("new")

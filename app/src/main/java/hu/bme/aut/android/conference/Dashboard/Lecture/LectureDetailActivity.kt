@@ -202,12 +202,19 @@ class LectureDetailActivity : BaseActivity(), AdapterView.OnItemSelectedListener
     }
 
     private fun disableFields() {
+        save_lecture_fab.visibility = View.GONE
         editTextTextLectureDescription.isEnabled = false
         editTextTextLecturenName.isEnabled = false
         editTextTextLecturePrice.isEnabled = false
         room_spinner.isEnabled = false
         section_spinner.isEnabled = false
         btnInterest.visibility = View.VISIBLE
+        if (HomeDashboard.USER?.lectures?.contains(lecture) == true) {
+            btnInterest.text = getString(R.string.unsubscribe_btn)
+        } else {
+            btnInterest.text =
+                getString(R.string.interest_lecture)
+        }
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {

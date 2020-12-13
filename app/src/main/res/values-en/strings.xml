@@ -66,4 +66,13 @@
     <string name="lecture_saved">Óra elmentve</string>
     <string name="user_add_to_lecture">Érdekel az előadás</string>
     <string name="interest_lecture">Érdekel az előadás</string>
+    <string name="deleteRoom">Törli a termet?</string>
+    <string name="capacity">Férőhely</string>
+    <string name="room_Name">Terem neve</string>
+    <string name="room_address">Terem címe</string>
+    <string name="zipcode_Edittext">Irányítószám</string>
+    <string name="zipCode_EditText">Város</string>
+    <string name="address_EditText">Cím</string>
+    <string name="Room_detail_Title">Terem részletei: - </string>
+    <string name="addRoomTitle">Új terem létrehozása</string>
 </resources>

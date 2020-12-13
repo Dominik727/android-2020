@@ -6,6 +6,7 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -26,6 +27,14 @@
         android:weightSum="0">
 
         <ImageView
+            android:id="@+id/UserIsSelected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/ic_baseline_done_24" />
+
+        <ImageView
             android:id="@+id/calendar_image"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -41,48 +50,18 @@
 
             <TextView
                 android:id="@+id/SectionNameItemTextView"
-                android:layout_width="match_parent"
-                android:paddingStart="5dp"
-                android:paddingEnd="5dp"
                 style="@style/TextAppearance.AppCompat.Title"
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="2"
-                tools:text="Section Name" />
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                tools:text="Lecture Name" />
 
         </LinearLayout>
 
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/SectionDateStartItemTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_weight="1"
-            android:text="@string/date_start" />
-
-        <TextView
-            android:id="@+id/SectionDateEndItemTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_weight="1"
-            android:text="@string/date_end" />
-
-
-
-    </LinearLayout>
-
 
 
 </LinearLayout>
