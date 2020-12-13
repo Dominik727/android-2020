@@ -137,7 +137,7 @@ class SectionDetail :
                     ).enqueue(object : Callback<Void> {
                         override fun onResponse(call: Call<Void>, response: Response<Void>) {
                             if (response.isSuccessful) {
-                                HomeDashboard.USER!!.sections.add(section!!)
+                                HomeDashboard.USER!!.sections.add(section)
                                 btnInterest.text = getString(R.string.unsubscribe_btn)
                             }
                         }
@@ -238,6 +238,7 @@ class SectionDetail :
         endDateEditText.isEnabled = false
         startDateEditText.isEnabled = false
         btnInterest.visibility = View.VISIBLE
+        btnInterest.text = getString(R.string.user_add_to_lecture)
     }
 
     override fun onSectionSelected(section: Section) {

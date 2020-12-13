@@ -29,7 +29,8 @@ import retrofit2.Response
 class ListLectureFragment :
     Fragment(),
     SwipeRefreshLayout.OnRefreshListener,
-    LectureAdapter.OnLectureSelectedListener, LectureDetailActivity.LecturenAddedListener {
+    LectureAdapter.OnLectureSelectedListener,
+    LectureDetailActivity.LecturenAddedListener {
 
     private lateinit var adapter: LectureAdapter
 
@@ -98,6 +99,7 @@ class ListLectureFragment :
     }
 
     override fun onRefresh() {
+        progressbarVisibility(true)
         loadRecyclerViewData()
         progressbarVisibility(false)
     }
@@ -129,7 +131,10 @@ class ListLectureFragment :
             ) { _, _ ->
                 lecture.id?.let {
                     HomeDashboard.Auth_KEY?.let { it1 ->
-                        LectureNetWorkManager.deleteLecture(it1, it).enqueue(object : Callback<Void> {
+                        LectureNetWorkManager.deleteLecture(
+                            it1,
+                            it
+                        ).enqueue(object : Callback<Void> {
                             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                                 if (response.code() == 404) {
                                     adapter.removeLecture(adapter.getLectureId(lecture))
@@ -148,7 +153,6 @@ class ListLectureFragment :
                                     Toast.LENGTH_LONG
                                 ).show()
                             }
-
                         })
                     }
                 }

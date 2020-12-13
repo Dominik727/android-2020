@@ -7,10 +7,10 @@
 package hu.bme.aut.android.conference.Dashboard.Rooms
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import hu.bme.aut.android.conference.R
 
 class ListRoomFragment : Fragment() {
@@ -20,7 +20,8 @@ class ListRoomFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment

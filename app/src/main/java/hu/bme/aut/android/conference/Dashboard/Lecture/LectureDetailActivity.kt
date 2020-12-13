@@ -11,10 +11,8 @@ import android.view.Gravity
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.EditText
 import hu.bme.aut.android.conference.Base.BaseActivity
 import hu.bme.aut.android.conference.Dashboard.HomeDashboard
-import hu.bme.aut.android.conference.Dashboard.Section.SectionDetail
 import hu.bme.aut.android.conference.Network.LectureNetWorkManager
 import hu.bme.aut.android.conference.Network.RoomNetWorkManager
 import hu.bme.aut.android.conference.Network.SectionNetworkManager
@@ -109,6 +107,58 @@ class LectureDetailActivity : BaseActivity(), AdapterView.OnItemSelectedListener
                 })
             }
         }
+
+        btnInterest.setOnClickListener {
+            if (HomeDashboard.USER?.lectures?.contains(lecture) != true) {
+                lecture.id?.let { lectureID ->
+                    HomeDashboard.Auth_KEY?.let { token ->
+                        HomeDashboard.USER?.let { user ->
+                            LectureNetWorkManager.addUserToLecture(
+                                token, lectureID,
+                                user
+                            ).enqueue(object : Callback<Void> {
+                                override fun onResponse(
+                                    call: Call<Void>,
+                                    response: Response<Void>
+                                ) {
+                                    if (response.isSuccessful) {
+                                        HomeDashboard.USER!!.lectures.add(
+                                            lecture
+                                        )
+                                        btnInterest.text = getString(R.string.unsubscribe_btn)
+                                    }
+                                }
+
+                                override fun onFailure(call: Call<Void>, t: Throwable) {
+                                    toast(getString(R.string.Add_unsuccess))
+                                }
+                            })
+                        }
+                    }
+                }
+            } else {
+                lecture.id?.let { lectureId ->
+                    HomeDashboard.Auth_KEY?.let { token ->
+                        LectureNetWorkManager.removeUserFromLecture(
+                            token,
+                            lectureId, HomeDashboard.USER!!
+                        ).enqueue(object : Callback<Void> {
+                            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                                if (response.isSuccessful) {
+                                    HomeDashboard.USER!!.lectures.remove(lecture)
+                                    btnInterest.text =
+                                        getString(R.string.interest_lecture)
+                                }
+                            }
+
+                            override fun onFailure(call: Call<Void>, t: Throwable) {
+                                toast(getString(R.string.delete_unsuccess))
+                            }
+                        })
+                    }
+                }
+            }
+        }
     }
 
     private fun sectionSpinnerLoader() {
@@ -129,7 +179,6 @@ class LectureDetailActivity : BaseActivity(), AdapterView.OnItemSelectedListener
         } else {
             lecture.section = sections.first()
         }
-
     }
 
     private fun roomSpinnerLoader() {

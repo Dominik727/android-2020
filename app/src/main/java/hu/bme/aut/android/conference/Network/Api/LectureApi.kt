@@ -7,6 +7,7 @@
 package hu.bme.aut.android.conference.Network.Api
 
 import hu.bme.aut.android.conference.model.Lecture
+import hu.bme.aut.android.conference.model.User
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -20,4 +21,18 @@ interface LectureApi {
 
     @DELETE("delete/{id}")
     fun deleteLecture(@Header("Authorization") token: String, @Path("id") id: Long): Call<Void>
+
+    @POST("addlecture/{id}")
+    fun addUserToLecture(
+        @Header("Authorization") token: String,
+        @Path("id") id: Long,
+        @Body user: User
+    ): Call<Void>
+
+    @POST("removelecture/{id}")
+    fun deleteUserFromLecture(
+        @Header("Authorization") token: String,
+        @Path("id") id: Long,
+        @Body user: User
+    ): Call<Void>
 }

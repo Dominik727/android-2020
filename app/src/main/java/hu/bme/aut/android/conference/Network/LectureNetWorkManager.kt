@@ -9,6 +9,7 @@ package hu.bme.aut.android.conference.Network
 import com.google.gson.GsonBuilder
 import hu.bme.aut.android.conference.Network.Api.LectureApi
 import hu.bme.aut.android.conference.model.Lecture
+import hu.bme.aut.android.conference.model.User
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -39,5 +40,13 @@ object LectureNetWorkManager {
 
     fun deleteLecture(token: String, id: Long): Call<Void> {
         return LECTURE_API.deleteLecture(token, id)
+    }
+
+    fun addUserToLecture(token: String, id: Long, user: User): Call<Void> {
+        return LECTURE_API.addUserToLecture(token, id, user)
+    }
+
+    fun removeUserFromLecture(token: String, id: Long, user: User): Call<Void> {
+        return LECTURE_API.deleteUserFromLecture(token, id, user)
     }
 }
