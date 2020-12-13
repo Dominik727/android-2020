@@ -31,7 +31,7 @@ class SectionDetail :
     BaseActivity(),
     DatePickerDialog.OnDateSetListener,
     TimePickerDialog.OnTimeSetListener,
-    SectionAdapter.OnSectionSelectedListener { // ktlint-disable max-line-length
+    SectionAdapter.OnSectionSelectedListener {
 
     enum class DateType {
         START,

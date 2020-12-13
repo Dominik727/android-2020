@@ -9,6 +9,7 @@ package hu.bme.aut.android.conference.Network
 import com.google.gson.GsonBuilder
 import hu.bme.aut.android.conference.Network.Api.RoomApi
 import hu.bme.aut.android.conference.model.Room
+import hu.bme.aut.android.conference.model.User
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -31,5 +32,13 @@ object RoomNetWorkManager {
 
     fun getAllRoom(token: String): Call<List<Room>> {
         return ROOM_API.getAllRoom(token)
+    }
+
+    fun newRoom(token: String, room: Room): Call<Void> {
+        return ROOM_API.newRoom(token, room)
+    }
+
+    fun deleteRoom(token: String, id: Long): Call<Void> {
+        return ROOM_API.deleteRoom(token, id)
     }
 }

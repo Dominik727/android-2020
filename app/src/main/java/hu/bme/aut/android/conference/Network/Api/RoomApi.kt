@@ -8,11 +8,16 @@ package hu.bme.aut.android.conference.Network.Api
 
 import hu.bme.aut.android.conference.model.Room
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Header
+import retrofit2.http.*
 
 interface RoomApi {
 
     @GET("all")
     fun getAllRoom(@Header("Authorization") token: String): Call<List<Room>>
+
+    @POST("delete/{id}")
+    fun deleteRoom(@Header("Authorization") token: String, @Path("id") id: Long): Call<Void>
+
+    @POST("new")
+    fun newRoom(@Header("Authorization") token: String, @Body room: Room): Call<Void>
 }

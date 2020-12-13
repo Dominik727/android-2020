@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Conference">
-        <activity android:name=".Dashboard.Lecture.LectureDetailActivity"></activity>
+        <activity android:name=".Dashboard.Rooms.RoomDetailActivity"></activity>
+        <activity android:name=".Dashboard.Lecture.LectureDetailActivity" />
         <activity
             android:name=".Login.SplashScreenActivity"
             android:theme="@style/SplashTheme">
