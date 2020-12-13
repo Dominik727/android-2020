@@ -26,6 +26,7 @@ import kotlinx.android.synthetic.main.activity_section_detail.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import kotlin.collections.ArrayList
 
 class SectionDetail :
     BaseActivity(),
@@ -130,6 +131,10 @@ class SectionDetail :
         }
         btnInterest.setOnClickListener {
             if (HomeDashboard.USER?.sections?.contains(section) != true) {
+                val sections = HomeDashboard.USER?.sections
+                HomeDashboard.USER?.sections = ArrayList()
+                val lectures = HomeDashboard.USER?.lectures
+                HomeDashboard.USER?.lectures = ArrayList()
                 section.id?.let { it1 ->
                     SectionNetworkManager.addUserToSection(
                         HomeDashboard.Auth_KEY!!,
@@ -137,6 +142,10 @@ class SectionDetail :
                     ).enqueue(object : Callback<Void> {
                         override fun onResponse(call: Call<Void>, response: Response<Void>) {
                             if (response.isSuccessful) {
+                                if (sections != null) {
+                                    HomeDashboard.USER?.sections = sections
+                                }
+                                HomeDashboard.USER?.lectures = lectures!!
                                 HomeDashboard.USER!!.sections.add(section)
                                 btnInterest.text = getString(R.string.unsubscribe_btn)
                                 listener?.sectionAdded()
@@ -145,6 +154,10 @@ class SectionDetail :
 
                         override fun onFailure(call: Call<Void>, t: Throwable) {
                             toast(getString(R.string.Add_unsuccess))
+                            if (sections != null) {
+                                HomeDashboard.USER?.sections = sections
+                                HomeDashboard.USER?.lectures = lectures!!
+                            }
                         }
                     })
                 }
@@ -158,6 +171,7 @@ class SectionDetail :
                             HomeDashboard.USER!!.sections.remove(section)
                             btnInterest.text =
                                 getString(R.string.interest_section_Button)
+                            listener?.sectionAdded()
                         }
                     }
 

@@ -46,7 +46,6 @@ class LectureDetailActivity : BaseActivity(), AdapterView.OnItemSelectedListener
             disableFields()
         }
 
-
         HomeDashboard.Auth_KEY?.let { token ->
             SectionNetworkManager.getSections(token).enqueue(object : Callback<List<Section>> {
                 override fun onResponse(
@@ -110,6 +109,10 @@ class LectureDetailActivity : BaseActivity(), AdapterView.OnItemSelectedListener
         btnInterest.setOnClickListener {
             showProgressDialog()
             if (HomeDashboard.USER?.lectures?.contains(lecture) != true) {
+                val sections = HomeDashboard.USER?.sections
+                HomeDashboard.USER?.sections = ArrayList()
+                val lectures = HomeDashboard.USER?.lectures
+                HomeDashboard.USER?.lectures = ArrayList()
                 lecture.id?.let { lectureID ->
                     HomeDashboard.Auth_KEY?.let { token ->
                         HomeDashboard.USER?.let { user ->
@@ -122,6 +125,10 @@ class LectureDetailActivity : BaseActivity(), AdapterView.OnItemSelectedListener
                                     response: Response<Void>
                                 ) {
                                     if (response.isSuccessful) {
+                                        if (sections != null) {
+                                            HomeDashboard.USER?.sections = sections
+                                        }
+                                        HomeDashboard.USER?.lectures = lectures!!
                                         HomeDashboard.USER!!.lectures.add(
                                             lecture
                                         )
@@ -135,6 +142,10 @@ class LectureDetailActivity : BaseActivity(), AdapterView.OnItemSelectedListener
 
                                 override fun onFailure(call: Call<Void>, t: Throwable) {
                                     toast(getString(R.string.Add_unsuccess))
+                                    if (sections != null) {
+                                        HomeDashboard.USER?.sections = sections
+                                        HomeDashboard.USER?.lectures = lectures!!
+                                    }
                                     hideProgressDialog()
                                 }
                             })

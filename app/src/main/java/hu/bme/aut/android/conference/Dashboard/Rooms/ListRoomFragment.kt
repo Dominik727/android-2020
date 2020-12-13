@@ -20,6 +20,7 @@ import hu.bme.aut.android.conference.Adapter.RoomAdapter
 import hu.bme.aut.android.conference.Dashboard.HomeDashboard
 import hu.bme.aut.android.conference.Network.RoomNetWorkManager
 import hu.bme.aut.android.conference.R
+import hu.bme.aut.android.conference.enum.userType
 import hu.bme.aut.android.conference.model.Room
 import kotlinx.android.synthetic.main.fragment_list_sections.*
 import retrofit2.Call
@@ -48,6 +49,9 @@ class ListRoomFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, RoomA
 
         initRecyclerView()
         initFab()
+        if (HomeDashboard.USER?.role ?: userType.USER == userType.USER) {
+            detail_fab.visibility = View.GONE
+        }
     }
 
     private fun initFab() {
@@ -114,47 +118,52 @@ class ListRoomFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, RoomA
     }
 
     override fun onLongRoomListener(room: Room) {
-        val builder = context?.let { AlertDialog.Builder(it) }
-        builder?.setTitle(getString(R.string.deleteRoom))
-        builder?.setCancelable(true)
-        builder?.apply {
-            setNegativeButton(
-                getString(R.string.no)
-            ) { _, _ ->
-            }
-            setPositiveButton(
-                getString(R.string.yes)
-            ) { _, _ ->
-                room.id?.let {
-                    HomeDashboard.Auth_KEY?.let { it1 ->
-                        RoomNetWorkManager.deleteRoom(
-                            it1,
-                            it
-                        ).enqueue(object : Callback<Void> {
-                            override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                                if (response.code() == 404) {
-                                    adapter.removeRoom(adapter.getLectureId(room))
-                                    return
+        if (HomeDashboard.USER?.role ?: userType.USER == userType.USER) {
+            val builder = context?.let { AlertDialog.Builder(it) }
+            builder?.setTitle(getString(R.string.deleteRoom))
+            builder?.setCancelable(true)
+            builder?.apply {
+                setNegativeButton(
+                    getString(R.string.no)
+                ) { _, _ ->
+                }
+                setPositiveButton(
+                    getString(R.string.yes)
+                ) { _, _ ->
+                    room.id?.let {
+                        HomeDashboard.Auth_KEY?.let { it1 ->
+                            RoomNetWorkManager.deleteRoom(
+                                it1,
+                                it
+                            ).enqueue(object : Callback<Void> {
+                                override fun onResponse(
+                                    call: Call<Void>,
+                                    response: Response<Void>
+                                ) {
+                                    if (response.code() == 404) {
+                                        adapter.removeRoom(adapter.getLectureId(room))
+                                        return
+                                    }
+                                    onRefresh()
+                                    Toast.makeText(
+                                        context, getString(R.string.delete_unsuccess),
+                                        Toast.LENGTH_LONG
+                                    ).show()
                                 }
-                                onRefresh()
-                                Toast.makeText(
-                                    context, getString(R.string.delete_unsuccess),
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            }
 
-                            override fun onFailure(call: Call<Void>, t: Throwable) {
-                                Toast.makeText(
-                                    context, getString(R.string.delete_unsuccess),
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            }
-                        })
+                                override fun onFailure(call: Call<Void>, t: Throwable) {
+                                    Toast.makeText(
+                                        context, getString(R.string.delete_unsuccess),
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                }
+                            })
+                        }
                     }
                 }
             }
+            builder?.show()
         }
-        builder?.show()
     }
 
     override fun roomAdded() {

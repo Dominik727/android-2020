@@ -9,6 +9,7 @@ package hu.bme.aut.android.conference.Dashboard
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
@@ -24,7 +25,9 @@ import hu.bme.aut.android.conference.Dashboard.Section.ListSectionsFragment
 import hu.bme.aut.android.conference.Login.LoginActivity
 import hu.bme.aut.android.conference.Network.UserNetworkManager
 import hu.bme.aut.android.conference.R
+import hu.bme.aut.android.conference.enum.userType
 import hu.bme.aut.android.conference.model.User
+import kotlinx.android.synthetic.main.fragment_list_sections.*
 import kotlinx.android.synthetic.main.nav_header.*
 import kotlinx.android.synthetic.main.nav_header.view.*
 import retrofit2.Call
@@ -51,6 +54,9 @@ class HomeDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedLis
                     override fun onResponse(call: Call<User>, response: Response<User>) {
                         if (response.isSuccessful) {
                             USER = response.body()
+                            if (USER?.role ?: userType.USER == userType.ADMIN) {
+                                detail_fab.visibility = View.VISIBLE
+                            }
                         }
                     }
 
@@ -82,27 +88,35 @@ class HomeDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedLis
 
         this.title = getString(R.string.sections)
         supportFragmentManager.beginTransaction()
-                .replace(R.id.fragmant_layout, ListSectionsFragment()).commit()
+            .replace(R.id.fragmant_layout, ListSectionsFragment()).commit()
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.nav_sections -> {supportFragmentManager.beginTransaction().replace(
-                R.id.fragmant_layout,
-                ListSectionsFragment()
-            ).commit()
-            this.title = getString(R.string.sections)}
-            R.id.nav_lectures -> {supportFragmentManager.beginTransaction().replace(
-                R.id.fragmant_layout,
-                ListLectureFragment()
-            ).commit()
-            this.title = getString(R.string.lectures)
-            }
-            R.id.nav_rooms -> { supportFragmentManager.beginTransaction().replace(
-                R.id.fragmant_layout,
-                ListRoomFragment()
-            ).commit()
-            this.title = getString(R.string.rooms)}
+            R.id.nav_sections ->
+                {
+                    supportFragmentManager.beginTransaction().replace(
+                        R.id.fragmant_layout,
+                        ListSectionsFragment()
+                    ).commit()
+                    this.title = getString(R.string.sections)
+                }
+            R.id.nav_lectures ->
+                {
+                    supportFragmentManager.beginTransaction().replace(
+                        R.id.fragmant_layout,
+                        ListLectureFragment()
+                    ).commit()
+                    this.title = getString(R.string.lectures)
+                }
+            R.id.nav_rooms ->
+                {
+                    supportFragmentManager.beginTransaction().replace(
+                        R.id.fragmant_layout,
+                        ListRoomFragment()
+                    ).commit()
+                    this.title = getString(R.string.rooms)
+                }
             R.id.nav_sign_out -> {
                 val builder = AlertDialog.Builder(this)
                 builder.setTitle(getString(R.string.exit_confirmed))

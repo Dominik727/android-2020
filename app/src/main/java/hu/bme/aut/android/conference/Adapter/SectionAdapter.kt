@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import hu.bme.aut.android.conference.Base.DateFormatter
+import hu.bme.aut.android.conference.Dashboard.HomeDashboard
 import hu.bme.aut.android.conference.R
 import hu.bme.aut.android.conference.model.Section
 import kotlinx.android.synthetic.main.item_section.view.*
@@ -75,14 +76,16 @@ class SectionAdapter(private val listener: OnSectionSelectedListener) :
         }
         fun bind(section: Section?) {
             item = section
-            if (sections.contains(item)) {
+            if (item?.let { HomeDashboard.USER?.sections?.contains(it) } == true) {
                 itemView.UserIsSelectedSection.visibility = View.VISIBLE
             }
             itemView.RoomNameItemTextView.text = item?.name ?: ""
             itemView.SectionDateEndItemTextView.text = item?.startTime?.let {
-                DateFormatter.shared.formatStringToShow(it) }
+                DateFormatter.shared.formatStringToShow(it)
+            }
             itemView.SectionDateStartItemTextView.text = item?.endTime?.let {
-                DateFormatter.shared.formatStringToShow(it) }
+                DateFormatter.shared.formatStringToShow(it)
+            }
         }
     }
 

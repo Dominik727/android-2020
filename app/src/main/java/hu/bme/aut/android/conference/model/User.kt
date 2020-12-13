@@ -13,7 +13,7 @@ data class User(
     val username: String,
     val password: String,
     val email: String,
-    val role: userType,
+    var role: userType,
     val phoneNumber: String?,
     val verified: Boolean,
     var sections: ArrayList<Section>,

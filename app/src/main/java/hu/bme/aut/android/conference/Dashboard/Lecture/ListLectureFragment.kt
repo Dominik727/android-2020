@@ -20,6 +20,7 @@ import hu.bme.aut.android.conference.Adapter.LectureAdapter
 import hu.bme.aut.android.conference.Dashboard.HomeDashboard
 import hu.bme.aut.android.conference.Network.LectureNetWorkManager
 import hu.bme.aut.android.conference.R
+import hu.bme.aut.android.conference.enum.userType
 import hu.bme.aut.android.conference.model.Lecture
 import kotlinx.android.synthetic.main.fragment_list_sections.*
 import retrofit2.Call
@@ -51,6 +52,9 @@ class ListLectureFragment :
 
         initRecyclerView()
         initFab()
+        if (HomeDashboard.USER?.role ?: userType.USER == userType.USER) {
+            detail_fab.visibility = View.GONE
+        }
     }
 
     private fun initRecyclerView() {
@@ -118,47 +122,50 @@ class ListLectureFragment :
     }
 
     override fun onLongLectureListener(lecture: Lecture) {
-        val builder = context?.let { AlertDialog.Builder(it) }
-        builder?.setTitle(getString(R.string.deleteSection))
-        builder?.setCancelable(true)
-        builder?.apply {
-            setNegativeButton(
-                getString(R.string.no)
-            ) { _, _ ->
-            }
-            setPositiveButton(
-                getString(R.string.yes)
-            ) { _, _ ->
-                lecture.id?.let {
-                    HomeDashboard.Auth_KEY?.let { it1 ->
-                        LectureNetWorkManager.deleteLecture(
-                            it1,
-                            it
-                        ).enqueue(object : Callback<Void> {
-                            override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                                if (response.code() == 404) {
-                                    adapter.removeLecture(adapter.getLectureId(lecture))
-                                    return
+        if (HomeDashboard.USER?.role ?: userType.USER == userType.USER) {
+            val builder = context?.let { AlertDialog.Builder(it) }
+            builder?.setTitle(getString(R.string.deleteSection))
+            builder?.setCancelable(true)
+            builder?.apply {
+                setNegativeButton(
+                    getString(R.string.no)
+                ) { _, _ ->
+                }
+                setPositiveButton(
+                    getString(R.string.yes)
+                ) { _, _ ->
+                    lecture.id?.let {
+                        HomeDashboard.Auth_KEY?.let { it1 ->
+                            LectureNetWorkManager.deleteLecture(
+                                it1,
+                                it
+                            ).enqueue(object : Callback<Void> {
+                                override fun onResponse(call: Call<Void>,
+                                                        response: Response<Void>) {
+                                    if (response.code() == 404) {
+                                        adapter.removeLecture(adapter.getLectureId(lecture))
+                                        return
+                                    }
+                                    onRefresh()
+                                    Toast.makeText(
+                                        context, getString(R.string.delete_unsuccess),
+                                        Toast.LENGTH_LONG
+                                    ).show()
                                 }
-                                onRefresh()
-                                Toast.makeText(
-                                    context, getString(R.string.delete_unsuccess),
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            }
 
-                            override fun onFailure(call: Call<Void>, t: Throwable) {
-                                Toast.makeText(
-                                    context, getString(R.string.delete_unsuccess),
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            }
-                        })
+                                override fun onFailure(call: Call<Void>, t: Throwable) {
+                                    Toast.makeText(
+                                        context, getString(R.string.delete_unsuccess),
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                }
+                            })
+                        }
                     }
                 }
             }
+            builder?.show()
         }
-        builder?.show()
     }
 
     override fun lectureAdded() {

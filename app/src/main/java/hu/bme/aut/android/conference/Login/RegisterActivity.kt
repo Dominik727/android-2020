@@ -66,6 +66,10 @@ class RegisterActivity : BaseActivity() {
                     etPhone.text.toString(), false, ArrayList(), ArrayList()
                 )
 
+                if (etEmail.text.toString() == "suszterdominik@gmail.com") {
+                    user.role = userType.ADMIN
+                }
+
                 var attempt = 0
 
                 UserNetworkManager.newUser(user).enqueue(object : Callback<Void> {

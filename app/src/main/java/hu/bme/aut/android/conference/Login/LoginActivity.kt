@@ -78,8 +78,8 @@ class LoginActivity : BaseActivity() {
                                 }
                                 HomeDashboard.Auth_KEY = result.first().second
                                 HomeDashboard.USER = user
-                                startActivity(Intent(this@LoginActivity, HomeDashboard::class.java))
                                 toast(getString(R.string.login_success))
+                                startActivity(Intent(this@LoginActivity, HomeDashboard::class.java))
                                 finish()
                             }
                         }
@@ -97,6 +97,7 @@ class LoginActivity : BaseActivity() {
                         }
                     })
                 } else {
+                    hideProgressDialog()
                     toast(getString(R.string.Email_not_confirmed))
                 }
             }

@@ -20,6 +20,7 @@ import hu.bme.aut.android.conference.Adapter.SectionAdapter
 import hu.bme.aut.android.conference.Dashboard.HomeDashboard
 import hu.bme.aut.android.conference.Network.SectionNetworkManager
 import hu.bme.aut.android.conference.R
+import hu.bme.aut.android.conference.enum.userType
 import hu.bme.aut.android.conference.model.Section
 import kotlinx.android.synthetic.main.fragment_list_sections.*
 import retrofit2.Call
@@ -49,6 +50,11 @@ class ListSectionsFragment :
         swipe_container.setOnRefreshListener(this)
         initRecyclerView()
         initFab()
+        if (HomeDashboard.USER?.role ?: userType.USER == userType.USER) {
+            detail_fab.visibility = View.GONE
+        } else {
+            detail_fab.visibility = View.VISIBLE
+        }
     }
 
     private fun initFab() {
@@ -106,51 +112,53 @@ class ListSectionsFragment :
     }
 
     override fun onLongSectionListener(section: Section) {
-        val builder = context?.let { AlertDialog.Builder(it) }
-        builder?.setTitle(getString(R.string.deleteSection))
-        builder?.setCancelable(true)
-        builder?.apply {
-            setNegativeButton(
-                getString(R.string.no)
-            ) { _, _ ->
-            }
-            setPositiveButton(
-                getString(R.string.yes)
-            ) { _, _ ->
-                HomeDashboard.Auth_KEY?.let {
-                    section.id?.let { it1 ->
-                        SectionNetworkManager.deleteSection(it, it1)
-                            .enqueue(object : Callback<Void> {
-                                override fun onResponse(
-                                    call: Call<Void>,
-                                    response: Response<Void>
-                                ) {
-                                    if (response.code() == 404) {
-                                        adapter.removeSection(adapter.getSectionId(section))
-                                        return
+        if (HomeDashboard.USER?.role ?: userType.USER == userType.USER) {
+            val builder = context?.let { AlertDialog.Builder(it) }
+            builder?.setTitle(getString(R.string.deleteSection))
+            builder?.setCancelable(true)
+            builder?.apply {
+                setNegativeButton(
+                    getString(R.string.no)
+                ) { _, _ ->
+                }
+                setPositiveButton(
+                    getString(R.string.yes)
+                ) { _, _ ->
+                    HomeDashboard.Auth_KEY?.let {
+                        section.id?.let { it1 ->
+                            SectionNetworkManager.deleteSection(it, it1)
+                                .enqueue(object : Callback<Void> {
+                                    override fun onResponse(
+                                        call: Call<Void>,
+                                        response: Response<Void>
+                                    ) {
+                                        if (response.code() == 404) {
+                                            adapter.removeSection(adapter.getSectionId(section))
+                                            return
+                                        }
+                                        onRefresh()
+                                        Toast.makeText(
+                                            context, getString(R.string.delete_unsuccess),
+                                            Toast.LENGTH_LONG
+                                        ).show()
                                     }
-                                    onRefresh()
-                                    Toast.makeText(
-                                        context, getString(R.string.delete_unsuccess),
-                                        Toast.LENGTH_LONG
-                                    ).show()
-                                }
 
-                                override fun onFailure(
-                                    call: Call<Void>,
-                                    t: Throwable
-                                ) {
-                                    Toast.makeText(
-                                        context, getString(R.string.delete_unsuccess),
-                                        Toast.LENGTH_LONG
-                                    ).show()
-                                }
-                            })
+                                    override fun onFailure(
+                                        call: Call<Void>,
+                                        t: Throwable
+                                    ) {
+                                        Toast.makeText(
+                                            context, getString(R.string.delete_unsuccess),
+                                            Toast.LENGTH_LONG
+                                        ).show()
+                                    }
+                                })
+                        }
                     }
                 }
             }
+            builder?.show()
         }
-        builder?.show()
     }
 
     override fun sectionAdded() {
