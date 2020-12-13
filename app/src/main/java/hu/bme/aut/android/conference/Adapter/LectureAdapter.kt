@@ -14,10 +14,8 @@ import androidx.recyclerview.widget.RecyclerView
 import hu.bme.aut.android.conference.Dashboard.HomeDashboard
 import hu.bme.aut.android.conference.R
 import hu.bme.aut.android.conference.model.Lecture
-import kotlinx.android.synthetic.main.activity_section_detail.view.*
 import kotlinx.android.synthetic.main.item_lecture.view.*
-import kotlinx.android.synthetic.main.item_section.view.*
-import kotlinx.android.synthetic.main.item_section.view.SectionNameItemTextView
+import kotlinx.android.synthetic.main.item_section.view.RoomNameItemTextView
 
 class LectureAdapter(private val listener: OnLectureSelectedListener) :
     RecyclerView.Adapter<LectureAdapter.LectureViewHolder>() {
@@ -81,11 +79,11 @@ class LectureAdapter(private val listener: OnLectureSelectedListener) :
         }
         fun bind(lecture: Lecture?) {
             item = lecture
-            itemView.SectionNameItemTextView.text = item?.name ?: ""
+            itemView.RoomNameItemTextView.text = item?.name ?: ""
             if (HomeDashboard.USER?.lectures?.contains(lecture) != true) {
-                itemView.UserIsSelected.visibility = View.INVISIBLE
+                itemView.UserIsSelectedSection.visibility = View.INVISIBLE
             } else {
-                itemView.UserIsSelected.visibility = View.VISIBLE
+                itemView.UserIsSelectedSection.visibility = View.VISIBLE
             }
         }
     }

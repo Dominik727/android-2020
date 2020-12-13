@@ -29,7 +29,7 @@
             android:id="@+id/calendar_image"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_calendar_time_event">
+            android:src="@drawable/ic_baseline_place_24">
 
         </ImageView>
 
@@ -40,7 +40,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/SectionNameItemTextView"
+                android:id="@+id/RoomNameItemTextView"
                 android:layout_width="match_parent"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
@@ -48,41 +48,11 @@
                 android:layout_height="0dp"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="2"
-                tools:text="Section Name" />
+                tools:text="Room Name" />
 
         </LinearLayout>
 
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/SectionDateStartItemTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_weight="1"
-            android:text="@string/date_start" />
-
-        <TextView
-            android:id="@+id/SectionDateEndItemTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_weight="1"
-            android:text="@string/date_end" />
-
-
-
-    </LinearLayout>
-
 
 
 </LinearLayout>

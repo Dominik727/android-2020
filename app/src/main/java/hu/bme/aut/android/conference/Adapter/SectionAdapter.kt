@@ -15,7 +15,6 @@ import hu.bme.aut.android.conference.Base.DateFormatter
 import hu.bme.aut.android.conference.R
 import hu.bme.aut.android.conference.model.Section
 import kotlinx.android.synthetic.main.item_section.view.*
-import kotlinx.android.synthetic.main.nav_header_main.view.*
 
 class SectionAdapter(private val listener: OnSectionSelectedListener) :
     RecyclerView.Adapter<SectionAdapter.SectionViewHolder>() {
@@ -76,7 +75,10 @@ class SectionAdapter(private val listener: OnSectionSelectedListener) :
         }
         fun bind(section: Section?) {
             item = section
-            itemView.SectionNameItemTextView.text = item?.name ?: ""
+            if (sections.contains(item)) {
+                itemView.UserIsSelectedSection.visibility = View.VISIBLE
+            }
+            itemView.RoomNameItemTextView.text = item?.name ?: ""
             itemView.SectionDateEndItemTextView.text = item?.startTime?.let {
                 DateFormatter.shared.formatStringToShow(it) }
             itemView.SectionDateStartItemTextView.text = item?.endTime?.let {

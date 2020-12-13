@@ -47,4 +47,7 @@
     <string name="address_EditText">Cím</string>
     <string name="Room_detail_Title">Terem részletei: - </string>
     <string name="addRoomTitle">Új terem létrehozása</string>
+    <string name="sections">Szekciók</string>
+    <string name="lectures">Előadások</string>
+    <string name="rooms">Termek</string>
 </resources>

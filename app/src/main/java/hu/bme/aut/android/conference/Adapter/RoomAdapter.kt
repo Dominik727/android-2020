@@ -76,7 +76,7 @@ class RoomAdapter(private val listener: OnRoomSelectedListener) : RecyclerView.A
         }
         fun bind(room: Room?) {
             item = room
-            itemView.SectionNameItemTextView.text = item?.name ?: ""
+            itemView.RoomNameItemTextView.text = item?.name ?: ""
         }
     }
 

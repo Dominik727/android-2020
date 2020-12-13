@@ -80,23 +80,29 @@ class HomeDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedLis
         headerView.userNameTextView.text = USER?.username ?: ""
         headerView.userEmailTextView.text = USER?.email ?: ""
 
-        supportFragmentManager.beginTransaction().replace(R.id.fragmant_layout, ListSectionsFragment()).commit() // ktlint-disable max-line-length
+        this.title = getString(R.string.sections)
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.fragmant_layout, ListSectionsFragment()).commit()
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.nav_sections -> supportFragmentManager.beginTransaction().replace(
+            R.id.nav_sections -> {supportFragmentManager.beginTransaction().replace(
                 R.id.fragmant_layout,
                 ListSectionsFragment()
             ).commit()
-            R.id.nav_lectures -> supportFragmentManager.beginTransaction().replace(
+            this.title = getString(R.string.sections)}
+            R.id.nav_lectures -> {supportFragmentManager.beginTransaction().replace(
                 R.id.fragmant_layout,
                 ListLectureFragment()
             ).commit()
-            R.id.nav_rooms -> supportFragmentManager.beginTransaction().replace(
+            this.title = getString(R.string.lectures)
+            }
+            R.id.nav_rooms -> { supportFragmentManager.beginTransaction().replace(
                 R.id.fragmant_layout,
                 ListRoomFragment()
             ).commit()
+            this.title = getString(R.string.rooms)}
             R.id.nav_sign_out -> {
                 val builder = AlertDialog.Builder(this)
                 builder.setTitle(getString(R.string.exit_confirmed))

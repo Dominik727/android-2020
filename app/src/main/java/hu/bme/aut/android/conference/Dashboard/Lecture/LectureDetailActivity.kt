@@ -42,11 +42,10 @@ class LectureDetailActivity : BaseActivity(), AdapterView.OnItemSelectedListener
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lecture_detail)
 
-        editTextTextLecturenName.setText(lecture.name)
-        editTextTextLectureDescription.setText(lecture.description)
-        editTextTextLecturePrice.setText(lecture.price.toString())
+        if (lecture.id != null) {
+            disableFields()
+        }
 
-        if (lecture.id != null) disableFields()
 
         HomeDashboard.Auth_KEY?.let { token ->
             SectionNetworkManager.getSections(token).enqueue(object : Callback<List<Section>> {
@@ -227,6 +226,9 @@ class LectureDetailActivity : BaseActivity(), AdapterView.OnItemSelectedListener
             btnInterest.text =
                 getString(R.string.interest_lecture)
         }
+        editTextTextLecturenName.setText(lecture.name)
+        editTextTextLectureDescription.setText(lecture.description)
+        editTextTextLecturePrice.setText(lecture.price.toString())
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
