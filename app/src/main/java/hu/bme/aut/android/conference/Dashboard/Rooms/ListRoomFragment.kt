@@ -118,7 +118,7 @@ class ListRoomFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, RoomA
     }
 
     override fun onLongRoomListener(room: Room) {
-        if (HomeDashboard.USER?.role ?: userType.USER == userType.USER) {
+        if (HomeDashboard.USER?.role ?: userType.USER != userType.USER) {
             val builder = context?.let { AlertDialog.Builder(it) }
             builder?.setTitle(getString(R.string.deleteRoom))
             builder?.setCancelable(true)

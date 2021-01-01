@@ -122,7 +122,7 @@ class ListLectureFragment :
     }
 
     override fun onLongLectureListener(lecture: Lecture) {
-        if (HomeDashboard.USER?.role ?: userType.USER == userType.USER) {
+        if (HomeDashboard.USER?.role ?: userType.USER != userType.USER) {
             val builder = context?.let { AlertDialog.Builder(it) }
             builder?.setTitle(getString(R.string.deleteSection))
             builder?.setCancelable(true)

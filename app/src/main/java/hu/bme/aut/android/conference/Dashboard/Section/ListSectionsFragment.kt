@@ -112,7 +112,7 @@ class ListSectionsFragment :
     }
 
     override fun onLongSectionListener(section: Section) {
-        if (HomeDashboard.USER?.role ?: userType.USER == userType.USER) {
+        if (HomeDashboard.USER?.role ?: userType.USER != userType.USER) {
             val builder = context?.let { AlertDialog.Builder(it) }
             builder?.setTitle(getString(R.string.deleteSection))
             builder?.setCancelable(true)
