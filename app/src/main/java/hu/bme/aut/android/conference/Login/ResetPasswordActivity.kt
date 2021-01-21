@@ -23,10 +23,6 @@ import kotlinx.android.synthetic.main.activity_reset_password.etEmail
 
 class ResetPasswordActivity : BaseActivity() {
 
-    private lateinit var mAuth: FirebaseAuth
-
-    private fun validateForm() = etEmail.validateNonEmpty() && etVerificationCode.validateNonEmpty()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reset_password)

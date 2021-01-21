@@ -95,7 +95,7 @@ dependencies {
     implementation 'android.arch.navigation:navigation-fragment-ktx:1.0.0'
     implementation 'android.arch.navigation:navigation-ui-ktx:1.0.0'
     implementation 'com.google.android.material:material:1.2.1'
-    implementation 'com.huawei.agconnect:agconnect-core:1.4.1.300'
+    implementation 'com.huawei.agconnect:agconnect-core:1.4.2.301'
     implementation 'com.huawei.hms:maps:5.0.2.300'
     implementation 'com.huawei.hms:push:4.0.3.301'
     implementation 'com.huawei.agconnect:agconnect-auth:1.4.2.301'

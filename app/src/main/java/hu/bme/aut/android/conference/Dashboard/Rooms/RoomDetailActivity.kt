@@ -9,14 +9,10 @@ package hu.bme.aut.android.conference.Dashboard.Rooms
 import android.location.Geocoder
 import android.os.Bundle
 import android.view.View
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.CameraPosition
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import com.huawei.hms.maps.*
+import com.huawei.hms.maps.model.CameraPosition
+import com.huawei.hms.maps.model.LatLng
+import com.huawei.hms.maps.model.MarkerOptions
 import hu.bme.aut.android.conference.Base.BaseActivity
 import hu.bme.aut.android.conference.Dashboard.HomeDashboard
 import hu.bme.aut.android.conference.Network.RoomNetWorkManager
@@ -29,19 +25,22 @@ import retrofit2.Response
 
 class RoomDetailActivity : BaseActivity(), OnMapReadyCallback {
 
+    // HUAWEI map
+    private lateinit var hMap: HuaweiMap
+
+    private lateinit var mMapView: MapView
+
     companion object {
         var listener: roomnAddedListener? = null
         var room = Room()
     }
 
-    private lateinit var mMap: GoogleMap
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_room_detail)
-        val mapFragment = supportFragmentManager
-            .findFragmentById(R.id.map) as SupportMapFragment
-        mapFragment.getMapAsync(this)
+
+        mMapView = findViewById(R.id.mapView)
+        mMapView.getMapAsync(this)
 
         if (room.id != null) {
             disableFields()
@@ -49,6 +48,13 @@ class RoomDetailActivity : BaseActivity(), OnMapReadyCallback {
             this.title = getString(R.string.addRoomTitle)
         }
         initfab()
+    }
+
+    override fun onMapReady(map: HuaweiMap) {
+        hMap = map
+        if (room.id != null) {
+            addMarker("${room.zipCode} ${room.city} ${room.address}")
+        }
     }
 
     private fun initfab() {
@@ -97,23 +103,41 @@ class RoomDetailActivity : BaseActivity(), OnMapReadyCallback {
         val latlong = coder.getFromLocationName(address, 1)
         if (latlong.isNotEmpty()) {
             val point = LatLng(latlong[0].latitude, latlong[0].longitude)
-            mMap.addMarker(MarkerOptions().position(point).title("Helyszin"))
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(point))
+            hMap?.addMarker(MarkerOptions().position(point).title("Helyszin"))
+            hMap?.moveCamera(CameraUpdateFactory.newLatLng(point))
             val cp = CameraPosition.Builder()
                 .zoom(12.5F)
                 .target(point)
                 .tilt(45.0f)
                 .bearing(35.0f)
                 .build()
-            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cp))
+            hMap?.animateCamera(CameraUpdateFactory.newCameraPosition(cp))
         }
     }
 
-    override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap
-        if (room.id != null) {
-            addMarker("${room.zipCode} ${room.city} ${room.address}")
-        }
+    override fun onStart() {
+        super.onStart()
+        mMapView?.onStart()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mMapView?.onStop()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mMapView?.onDestroy()
+    }
+
+    override fun onPause() {
+        mMapView?.onPause()
+        super.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mMapView?.onResume()
     }
 
     interface roomnAddedListener {

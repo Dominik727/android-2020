@@ -26,13 +26,13 @@ import retrofit2.Response
 
 class RegisterActivity : BaseActivity() {
 
-    private lateinit var firebaseAuth: AGConnectAuth
+    private lateinit var agConnectAuthbaseAuth: AGConnectAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        firebaseAuth = AGConnectAuth.getInstance()
+        agConnectAuthbaseAuth = AGConnectAuth.getInstance()
 
         btnToLogin.setOnClickListener { loginToClick() }
         btnRegister.setOnClickListener { registerClick() }

@@ -27,13 +27,13 @@ import retrofit2.Response
 
 class LoginActivity : BaseActivity() {
 
-    private lateinit var firebaseAuth: AGConnectAuth
+    private lateinit var agConnectAuth: AGConnectAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        firebaseAuth = AGConnectAuth.getInstance()
+        agConnectAuth = AGConnectAuth.getInstance()
 
         btnLogin.setOnClickListener { loginClick() }
         btnToRegister.setOnClickListener { registerToClick() }
@@ -57,7 +57,7 @@ class LoginActivity : BaseActivity() {
             return
         }
 
-        if (firebaseAuth.currentUser != null) {
+        if (agConnectAuth.currentUser != null) {
             loginSuccessful()
             return
         }
