@@ -17,6 +17,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.huawei.agconnect.auth.AGConnectAuth
 import hu.bme.aut.android.conference.Adapter.SectionAdapter
 import hu.bme.aut.android.conference.Base.BaseActivity
 import hu.bme.aut.android.conference.Dashboard.Lecture.ListLectureFragment
@@ -130,7 +131,7 @@ class HomeDashboard : BaseActivity(), NavigationView.OnNavigationItemSelectedLis
                     setPositiveButton(
                         getString(R.string.yes)
                     ) { _, _ ->
-                        FirebaseAuth.getInstance().signOut()
+                        AGConnectAuth.getInstance().signOut()
                         startActivity(Intent(this@HomeDashboard, LoginActivity::class.java))
                         finish()
                     }

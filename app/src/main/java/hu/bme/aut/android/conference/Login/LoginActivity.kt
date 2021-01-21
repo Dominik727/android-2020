@@ -8,7 +8,8 @@ package hu.bme.aut.android.conference.Login
 
 import android.content.Intent
 import android.os.Bundle
-import com.google.firebase.auth.FirebaseAuth
+import com.huawei.agconnect.auth.AGConnectAuth
+import com.huawei.agconnect.auth.EmailAuthProvider
 import hu.bme.aut.android.conference.Base.BaseActivity
 import hu.bme.aut.android.conference.Dashboard.HomeDashboard
 import hu.bme.aut.android.conference.Network.UserNetworkManager
@@ -26,13 +27,13 @@ import retrofit2.Response
 
 class LoginActivity : BaseActivity() {
 
-    private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var firebaseAuth: AGConnectAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        firebaseAuth = FirebaseAuth.getInstance()
+        firebaseAuth = AGConnectAuth.getInstance()
 
         btnLogin.setOnClickListener { loginClick() }
         btnToRegister.setOnClickListener { registerToClick() }
@@ -56,55 +57,59 @@ class LoginActivity : BaseActivity() {
             return
         }
 
-        showProgressDialog()
-        firebaseAuth
-            .signInWithEmailAndPassword(etEmail.text.toString(), etPassword.text.toString())
-            .addOnSuccessListener {
+        if (firebaseAuth.currentUser != null) {
+            loginSuccessful()
+            return
+        }
 
-                if (firebaseAuth.currentUser?.isEmailVerified!!) {
-                    var attempt = 0
-                    val user = User(
-                        null, etEmail.text.toString(), etPassword.text.toString(),
-                        etEmail.text.toString(), userType.USER, null, true, ArrayList(), ArrayList()
-                    )
-                    UserNetworkManager.login(
-                        user
-                    ).enqueue(object : Callback<Void> {
-                        override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                            if (response.isSuccessful) {
-                                val result = response.headers().toList().filter {
-                                    x ->
-                                    x.first.startsWith("Authorization")
-                                }
-                                HomeDashboard.Auth_KEY = result.first().second
-                                HomeDashboard.USER = user
-                                toast(getString(R.string.login_success))
-                                startActivity(Intent(this@LoginActivity, HomeDashboard::class.java))
-                                finish()
-                            }
-                        }
-                        override fun onFailure(call: Call<Void>, t: Throwable) {
-                            if (attempt > 3) {
-                                Thread.sleep(5_000)
-                                toast(getString(R.string.error_please_try_again))
-                                hideProgressDialog()
-                                return
-                            }
-                            attempt += 1
-                            UserNetworkManager.login(
-                                user
-                            ).clone().enqueue(this)
-                        }
-                    })
-                } else {
-                    hideProgressDialog()
-                    toast(getString(R.string.Email_not_confirmed))
+        showProgressDialog()
+        val credential = EmailAuthProvider.credentialWithPassword(
+            etEmail.text.toString(), etPassword.text.toString()
+        )
+
+        AGConnectAuth.getInstance().signIn(credential).addOnSuccessListener {
+            loginSuccessful()
+        }.addOnFailureListener {
+            hideProgressDialog()
+
+            toast(it.localizedMessage)
+        }
+    }
+
+    private fun loginSuccessful() {
+        var attempt = 0
+        val user = User(
+            null, etEmail.text.toString(), etPassword.text.toString(),
+            etEmail.text.toString(), userType.USER, null, true, ArrayList(), ArrayList()
+        )
+        UserNetworkManager.login(
+            user
+        ).enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    val result = response.headers().toList().filter { x ->
+                        x.first.startsWith("Authorization")
+                    }
+                    HomeDashboard.Auth_KEY = result.first().second
+                    HomeDashboard.USER = user
+                    toast(getString(R.string.login_success))
+                    startActivity(Intent(this@LoginActivity, HomeDashboard::class.java))
+                    finish()
                 }
             }
-            .addOnFailureListener { exception ->
-                hideProgressDialog()
 
-                toast(exception.localizedMessage)
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                if (attempt > 3) {
+                    Thread.sleep(5_000)
+                    toast(getString(R.string.error_please_try_again))
+                    hideProgressDialog()
+                    return
+                }
+                attempt += 1
+                UserNetworkManager.login(
+                    user
+                ).clone().enqueue(this)
             }
+        })
     }
 }

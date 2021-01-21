@@ -7,14 +7,18 @@
 package hu.bme.aut.android.conference.Login
 
 import android.os.Bundle
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.UserProfileChangeRequest
+import com.huawei.agconnect.auth.AGConnectAuth
+import com.huawei.agconnect.auth.EmailAuthProvider
+import com.huawei.agconnect.auth.EmailUser
+import com.huawei.agconnect.auth.VerifyCodeSettings
 import hu.bme.aut.android.conference.Base.BaseActivity
 import hu.bme.aut.android.conference.Network.UserNetworkManager
 import hu.bme.aut.android.conference.R
 import hu.bme.aut.android.conference.enum.userType
 import hu.bme.aut.android.conference.extensions.validateNonEmpty
 import hu.bme.aut.android.conference.model.User
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlinx.android.synthetic.main.activity_register.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -22,19 +26,38 @@ import retrofit2.Response
 
 class RegisterActivity : BaseActivity() {
 
-    private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var firebaseAuth: AGConnectAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        firebaseAuth = FirebaseAuth.getInstance()
+        firebaseAuth = AGConnectAuth.getInstance()
 
         btnToLogin.setOnClickListener { loginToClick() }
         btnRegister.setOnClickListener { registerClick() }
+
+        btnVerification.setOnClickListener {
+            sendVerificationCode()
+        }
     }
 
-    private fun validateForm() = etEmail.validateNonEmpty() && etPassword.validateNonEmpty()
+    private fun sendVerificationCode() {
+        val settings = VerifyCodeSettings.newBuilder()
+            .action(VerifyCodeSettings.ACTION_REGISTER_LOGIN)
+            .sendInterval(30)
+            .locale(Locale.ROOT)
+            .build()
+        val task = EmailAuthProvider.requestVerifyCode(etEmail.text.toString(), settings)
+        task.addOnSuccessListener {
+            toast(getString(R.string.sending_success))
+        }.addOnFailureListener {
+            toast(getString(R.string.sending_failed) + it.localizedMessage)
+        }
+    }
+
+    private fun validateForm() = etEmail.validateNonEmpty() && etPassword.validateNonEmpty() &&
+        etverifcation.validateNonEmpty()
 
     private fun loginToClick() {
         super.onBackPressed()
@@ -47,59 +70,50 @@ class RegisterActivity : BaseActivity() {
 
         showProgressDialog()
 
-        firebaseAuth
-            .createUserWithEmailAndPassword(etEmail.text.toString(), etPassword.text.toString())
-            .addOnSuccessListener { result ->
-                hideProgressDialog()
+        val emailUser = EmailUser.Builder()
+            .setEmail(etEmail.text.toString())
+            .setVerifyCode(etverifcation.text.toString())
+            .setPassword(etPassword.text.toString())
+            .build()
+        AGConnectAuth.getInstance().createUser(emailUser).addOnSuccessListener {
+            val user = User(
+                null, etEmail.text.toString(), etPassword.text.toString(),
+                etEmail.text.toString(), userType.USER,
+                etPhone.text.toString(), false, ArrayList(), ArrayList()
+            )
 
-                val firebaseUser = result.user
-                firebaseUser?.sendEmailVerification()
-                val profileChangeRequest = UserProfileChangeRequest.Builder()
-                    .setDisplayName(firebaseUser?.email?.substringBefore('@'))
-                    .build()
-                firebaseUser?.updateProfile(profileChangeRequest)
-                UserProfileChangeRequest.Builder()
+            if (etEmail.text.toString() == "suszterdominik@gmail.com" ||
+                etEmail.text.toString() == "suszterd@edu.bme.hu"
+            ) {
+                user.role = userType.ADMIN
+            }
 
-                val user = User(
-                    null, etEmail.text.toString(), etPassword.text.toString(),
-                    etEmail.text.toString(), userType.USER,
-                    etPhone.text.toString(), false, ArrayList(), ArrayList()
-                )
+            var attempt = 0
 
-                if (etEmail.text.toString() == "suszterdominik@gmail.com" ||
-                    etEmail.text.toString() == "suszterd@edu.bme.hu"
-                ) {
-                    user.role = userType.ADMIN
+            UserNetworkManager.newUser(user).enqueue(object : Callback<Void> {
+                override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                    if (response.isSuccessful) {
+                        toast(getString(R.string.regist_successful))
+                        loginToClick()
+                        return
+                    }
+                    toast(getString(R.string.error_please_try_again))
                 }
 
-                var attempt = 0
-
-                UserNetworkManager.newUser(user).enqueue(object : Callback<Void> {
-                    override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                        if (response.isSuccessful) {
-                            toast(getString(R.string.regist_successful))
-                            loginToClick()
-                            return
-                        }
+                override fun onFailure(call: Call<Void>, t: Throwable) {
+                    if (attempt > 3) {
+                        Thread.sleep(1_000)
                         toast(getString(R.string.error_please_try_again))
+                        hideProgressDialog()
+                        return
                     }
-
-                    override fun onFailure(call: Call<Void>, t: Throwable) {
-                        if (attempt > 3) {
-                            Thread.sleep(1_000)
-                            toast(getString(R.string.error_please_try_again))
-                            hideProgressDialog()
-                            return
-                        }
-                        attempt += 1
-                        UserNetworkManager.newUser(user).clone().enqueue(this)
-                    }
-                })
-            }
-            .addOnFailureListener { exception ->
-                hideProgressDialog()
-
-                toast(exception.message)
-            }
+                    attempt += 1
+                    UserNetworkManager.newUser(user).clone().enqueue(this)
+                }
+            })
+        }.addOnFailureListener {
+            hideProgressDialog()
+            toast(it.localizedMessage)
+        }
     }
 }

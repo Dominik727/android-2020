@@ -55,4 +55,10 @@
     <string name="sendsuccess">Kiküldés sikeres</string>
     <string name="userNotFound">Nincs ilyen fiók!</string>
     <string name="Required">Kötelező</string>
+    <string name="verification_code">Megerősítő kód</string>
+    <string name="new_password">új jelszó</string>
+    <string name="passwordChangeError">Jelszóváltoztatás sikertelen!</string>
+    <string name="PasswordChangeSuccess">Jelszóváltoztatás sikeres!</string>
+    <string name="sending_failed">Kiküldés sikertelen!</string>
+    <string name="sending_success">Megerősítő kód kiküldve!</string>
 </resources>
