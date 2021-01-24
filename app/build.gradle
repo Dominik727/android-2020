@@ -99,6 +99,7 @@ dependencies {
     implementation 'com.huawei.hms:maps:5.0.2.300'
     implementation 'com.huawei.hms:push:4.0.3.301'
     implementation 'com.huawei.agconnect:agconnect-auth:1.4.2.301'
+    implementation 'com.huawei.hms:ads-lite:13.4.30.301'
 
 }
 

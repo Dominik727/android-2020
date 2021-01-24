@@ -39,7 +39,6 @@ class RoomDetailActivity : BaseActivity(), OnMapReadyCallback {
         MapsInitializer.setApiKey("CgB6e3x9cSEuuhrXP7y/ScSrAiDpKFPGLFYc8DnpoJ4aXHEBdhh4URkwBYmumoQSE4oklurrSpRIy+shHGQju13F")
         setContentView(R.layout.activity_room_detail)
 
-
         initHuaweiMap(savedInstanceState)
 
         if (room.id != null) {
