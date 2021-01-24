@@ -25,22 +25,22 @@ import retrofit2.Response
 
 class RoomDetailActivity : BaseActivity(), OnMapReadyCallback {
 
-    // HUAWEI map
-    private lateinit var hMap: HuaweiMap
-
-    private lateinit var mMapView: MapView
+    private var hMap: HuaweiMap? = null
 
     companion object {
         var listener: roomnAddedListener? = null
         var room = Room()
+        private const val MAPVIEW_BUNDLE_KEY = "MapViewBundleKey"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        MapsInitializer.setApiKey("CgB6e3x9cSEuuhrXP7y/ScSrAiDpKFPGLFYc8DnpoJ4aXHEBdhh4URkwBYmumoQSE4oklurrSpRIy+shHGQju13F")
         setContentView(R.layout.activity_room_detail)
 
-        mMapView = findViewById(R.id.mapView)
-        mMapView.getMapAsync(this)
+
+        initHuaweiMap(savedInstanceState)
 
         if (room.id != null) {
             disableFields()
@@ -50,8 +50,21 @@ class RoomDetailActivity : BaseActivity(), OnMapReadyCallback {
         initfab()
     }
 
-    override fun onMapReady(map: HuaweiMap) {
+    private fun initHuaweiMap(savedInstanceState: Bundle?) {
+        var mapViewBundle: Bundle? = null
+        if (savedInstanceState != null) {
+            mapViewBundle = savedInstanceState.getBundle(MAPVIEW_BUNDLE_KEY)
+        }
+        map_view?.apply {
+            onCreate(mapViewBundle)
+            getMapAsync(this@RoomDetailActivity)
+        }
+    }
+
+    override fun onMapReady(map: HuaweiMap?) {
         hMap = map
+        hMap?.isMyLocationEnabled = true // Enable the my-location overlay.
+        hMap?.uiSettings?.isMyLocationButtonEnabled = true // Enable the my-location icon.
         if (room.id != null) {
             addMarker("${room.zipCode} ${room.city} ${room.address}")
         }
@@ -116,28 +129,45 @@ class RoomDetailActivity : BaseActivity(), OnMapReadyCallback {
     }
 
     override fun onStart() {
+        map_view?.onStart()
         super.onStart()
-        mMapView?.onStart()
     }
 
     override fun onStop() {
+        map_view?.onStop()
         super.onStop()
-        mMapView?.onStop()
     }
 
     override fun onDestroy() {
+        hMap?.clear()
+        hMap = null
+        map_view?.onDestroy()
         super.onDestroy()
-        mMapView?.onDestroy()
     }
 
     override fun onPause() {
-        mMapView?.onPause()
+        map_view?.onPause()
         super.onPause()
     }
 
     override fun onResume() {
+        map_view?.onResume()
         super.onResume()
-        mMapView?.onResume()
+    }
+
+    override fun onLowMemory() {
+        map_view?.onLowMemory()
+        super.onLowMemory()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        var mapViewBundle = outState.getBundle(MAPVIEW_BUNDLE_KEY)
+        if (mapViewBundle == null) {
+            mapViewBundle = Bundle()
+            outState.putBundle(MAPVIEW_BUNDLE_KEY, mapViewBundle)
+        }
+        map_view.onSaveInstanceState(mapViewBundle)
     }
 
     interface roomnAddedListener {
