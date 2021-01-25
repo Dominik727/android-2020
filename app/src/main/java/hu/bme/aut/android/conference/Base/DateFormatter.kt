@@ -28,4 +28,8 @@ class DateFormatter {
         val format = SimpleDateFormat("yyyy-MM-dd HH:mm")
         return format.format(date).replace(" ", "T")
     }
+
+    fun formatStringToShow(date: String): String {
+        return date.dropLast(10).replace("T", " ")
+    }
 }

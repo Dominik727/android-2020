@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2020
+  ~ Created by Suszter Dominik on 2020. 12. 6
+  ~ Copyright © 2020. RR. All rights reserved.
+  -->
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true"
@@ -10,6 +17,7 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:paddingTop="8dp"
+    android:id="@+id/sectionLayout"
     android:weightSum="3">
 
     <LinearLayout
@@ -19,6 +27,15 @@
         android:weightSum="0">
 
         <ImageView
+            android:id="@+id/UserIsSelectedSection"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/ic_baseline_done_24" />
+
+        <ImageView
+            android:id="@+id/calendar_image"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:src="@drawable/ic_calendar_time_event">
@@ -32,7 +49,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/SectionNameItemTextView"
+                android:id="@+id/RoomNameItemTextView"
                 android:layout_width="match_parent"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
@@ -53,23 +70,25 @@
 
         <TextView
             android:id="@+id/SectionDateStartItemTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
             android:paddingStart="5dp"
             android:paddingEnd="5dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_weight="1"
-            android:text="@string/date_start" />
+            android:text="@string/date_start"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/SectionDateEndItemTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
             android:paddingStart="5dp"
             android:paddingEnd="5dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_weight="1"
-            android:text="@string/date_end" />
+            android:text="@string/date_end"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
 
 

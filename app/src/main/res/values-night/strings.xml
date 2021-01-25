@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright (c) 2020
-  ~ Created by Suszter Dominik on 2020. 12. 5
+  ~ Created by Suszter Dominik on 2020. 12. 6
   ~ Copyright © 2020. RR. All rights reserved.
   -->
 
@@ -24,4 +24,41 @@
     <string name="Section_detail_title">\"Szekció részletei - \"</string>
     <string name="New_section_title">Új szekció</string>
     <string name="Section_saved">Szekció elmentve!</string>
+    <string name="interest_section_Button">Érdekel az esemény</string>
+    <string name="unsubscribe_btn">Lejelentkezés</string>
+    <string name="Add_unsuccess">Hozzáadás sikertelen!</string>
+    <string name="error">Hiba történt!</string>
+    <string name="endTextErrorText">Kérem töltse ki a kezdő dátumot!</string>
+    <string name="startTextErrorText">A végző dátum nem lehet kisebb a kezdő dátumnál</string>
+    <string name="rooms_menu">Termek</string>
+    <string name="lectures_menu">Előadások</string>
+    <string name="section_menu">Szekciók</string>
+    <string name="select_section">Kérem válasszon szekciót!</string>
+    <string name="select_room">Kérem válasszon termet!</string>
+    <string name="lecture_saved">Óra elmentve</string>
+    <string name="user_add_to_lecture">Érdekel az előadás</string>
+    <string name="interest_lecture">Érdekel az előadás</string>
+    <string name="deleteRoom">Törli a termet?</string>
+    <string name="capacity">Férőhely</string>
+    <string name="room_Name">Terem neve</string>
+    <string name="room_address">Terem címe</string>
+    <string name="zipcode_Edittext">Irányítószám</string>
+    <string name="zipCode_EditText">Város</string>
+    <string name="address_EditText">Cím</string>
+    <string name="Room_detail_Title">Terem részletei: - </string>
+    <string name="addRoomTitle">Új terem létrehozása</string>
+    <string name="sections">Szekciók</string>
+    <string name="lectures">Előadások</string>
+    <string name="rooms">Termek</string>
+    <string name="writeEmail">írd be az email címed!</string>
+    <string name="forgetPassword">Jelszóemlékeztető</string>
+    <string name="sendsuccess">Kiküldés sikeres</string>
+    <string name="userNotFound">Nincs ilyen fiók!</string>
+    <string name="Required">Kötelező</string>
+    <string name="verification_code">Megerősítő kód</string>
+    <string name="new_password">új jelszó</string>
+    <string name="passwordChangeError">Jelszóváltoztatás sikertelen!</string>
+    <string name="PasswordChangeSuccess">Jelszóváltoztatás sikeres!</string>
+    <string name="sending_failed">Kiküldés sikertelen!</string>
+    <string name="sending_success">Megerősítő kód kiküldve!</string>
 </resources>

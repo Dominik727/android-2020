@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2020
-  ~ Created by Suszter Dominik on 2020. 12. 5
+  ~ Created by Suszter Dominik on 2020. 12. 6
   ~ Copyright © 2020. RR. All rights reserved.
   -->
 
@@ -10,7 +10,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryBackground"
     android:orientation="vertical"
-    tools:context=".Section.SectionDetail">
+    tools:context=".Dashboard.Section.SectionDetail">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -86,6 +86,13 @@
             android:inputType="none"
             tools:layout_editor_absoluteX="21dp"
             tools:layout_editor_absoluteY="107dp" />
+
+        <Button
+            android:id="@+id/btnInterest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:text="@string/interest_section_Button" />
 
     </LinearLayout>
 

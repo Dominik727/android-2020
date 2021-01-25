@@ -1,6 +1,10 @@
 package hu.bme.aut.android.conference.enum
 
+import com.google.gson.annotations.SerializedName
+
 enum class userType {
-    ADMIN,
-    USER
+    @SerializedName("USER")
+    USER,
+    @SerializedName("ADMIN")
+    ADMIN
 }

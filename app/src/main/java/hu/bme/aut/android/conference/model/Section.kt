@@ -6,8 +6,6 @@
 
 package hu.bme.aut.android.conference.model
 
-import java.util.Date
-
 data class Section(
     val id: Long?,
     var name: String?,

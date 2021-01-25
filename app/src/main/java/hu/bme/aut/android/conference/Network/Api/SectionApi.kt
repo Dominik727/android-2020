@@ -1,12 +1,13 @@
 /*
  * Copyright (c) 2020
- * Created by Suszter Dominik on 2020. 11. 29
+ * Created by Suszter Dominik on 2020. 12. 6
  * Copyright © 2020. RR. All rights reserved.
  */
 
 package hu.bme.aut.android.conference.Network.Api
 
 import hu.bme.aut.android.conference.model.Section
+import hu.bme.aut.android.conference.model.User
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -20,4 +21,18 @@ interface SectionApi {
 
     @DELETE("delete/{id}")
     fun deleteSection(@Header("Authorization") token: String, @Path("id") id: Long): Call<Void>
+
+    @POST("adduser/{id}")
+    fun newUserToSection(
+        @Header("Authorization") token: String,
+        @Body user: User,
+        @Path("id") id: Long
+    ): Call<Void>
+
+    @POST("removeuser/{id}")
+    fun removeUserFromSection(
+        @Header("Authorization") token: String,
+        @Body user: User,
+        @Path("id") id: Long
+    ): Call<Void>
 }
