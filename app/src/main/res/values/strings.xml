@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2020
+  ~ Created by Suszter Dominik on 2020. 12. 6
+  ~ Copyright © 2020. RR. All rights reserved.
+  -->
+
+<resources>
+    <string name="app_name">Konferencia szervező</string>
+    <string name="title_activity_posts">PostsActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="regist_successful">Registration successful</string>
+    <string name="password">Jelszó</string>
+    <string name="forgot_my_password">Elfelejtettem a jelszavam</string>
+    <string name="login">Bejelentkezés</string>
+    <string name="new_user">Új felhasználó? Regisztráljon!</string>
+    <string name="please_login">Kérlek jelentkezz be</string>
+    <string name="Welcome_title">Szia, Üdvözlünk újra itt</string>
+    <string name="email">Email</string>
+    <string name="is_forgot_password">Elfelejtetted a jelszavad?</string>
+    <string name="forget_passwod_overview">Ahhoz, hogy megváltoztasd a jelszavad, írd be az email címed és a gombra kattintva kövesd az instrukciókat!</string>
+    <string name="forget_password_get">Jelszóemlékeztető kérése</string>
+    <string name="back" translatable="false">Vissza</string>
+    <string name="welcome_register">Szia, Üdvözlünk felhasználóink között</string>
+    <string name="please_register_account">Kérlek regisztrájl fiókot!</string>
+    <string name="registration">Regisztráció</string>
+    <string name="have_account">Már van fiókod?</string>
+    <string name="logout">Kilépés</string>
+    <string name="loading">Betöltés</string>
+    <string name="yes">Igen</string>
+    <string name="no">Nem</string>
+    <string name="phoneNumber">Telefonszám</string>
+    <string name="registration_success">A fiók regisztráció sikeres volt</string>
+    <string name="error_please_try_again">Hiba történt, próbája újra!</string>
+    <string name="login_success">Bejelentkezés sikeres</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="date_start">Date_start</string>
+    <string name="date_end">Date_end</string>
+    <string name="exit_confirmed">Valóban ki akar lépni?</string>
+    <string name="Email_not_confirmed">Email cím nincs megerősítve!</string>
+    <string name="section_name">Szekció neve</string>
+    <string name="start_date">Kezdő dátum</string>
+    <string name="end_time">Befejező Dátum</string>
+    <string name="deleteSection">Törli a szekciót?</string>
+    <string name="delete_unsuccess">Törlés sikertelen!</string>
+    <string name="Section_detail_title">Szekció részletei - </string>
+    <string name="New_section_title">Új szekció</string>
+    <string name="Section_saved">Szekció elmentve!</string>
+    <string name="interest_section_Button">Érdekel az esemény</string>
+    <string name="unsubscribe_btn">Lejelentkezés</string>
+    <string name="Add_unsuccess">Hozzáadás sikertelen!</string>
+    <string name="error">Hiba történt!</string>
+    <string name="endTextErrorText">Kérem töltse ki a kezdő dátumot!</string>
+    <string name="startTextErrorText">A végző dátum nem lehet kisebb a kezdő dátumnál</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="rooms_menu">Termek</string>
+    <string name="lectures_menu">Előadások</string>
+    <string name="section_menu">Szekciók</string>
+    <string name="select_section">Kérem válasszon szekciót!</string>
+    <string name="select_room">Kérem válasszon termet!</string>
+    <string name="lecture_saved">Óra elmentve</string>
+    <string name="user_add_to_lecture">Érdekel az előadás</string>
+    <string name="interest_lecture">Érdekel az előadás</string>
+    <string name="deleteRoom">Törli a termet?</string>
+    <string name="capacity">Férőhely</string>
+    <string name="room_Name">Terem neve</string>
+    <string name="room_address">Terem címe</string>
+    <string name="zipcode_Edittext">Irányítószám</string>
+    <string name="zipCode_EditText">Város</string>
+    <string name="address_EditText">Cím</string>
+    <string name="Room_detail_Title">Terem részletei: - </string>
+    <string name="addRoomTitle">Új terem létrehozása</string>
+    <string name="sections">Szekciók</string>
+    <string name="lectures">Előadások</string>
+    <string name="rooms">Termek</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="writeEmail">írd be az email címed!</string>
+    <string name="forgetPassword">Jelszóemlékeztető</string>
+    <string name="sendsuccess">Kiküldés sikeres</string>
+    <string name="userNotFound">Nincs ilyen fiók!</string>
+    <string name="Required">Kötelező</string>
+    <string name="verification_code">Megerősítő kód</string>
+    <string name="new_password">új jelszó</string>
+    <string name="passwordChangeError">Jelszóváltoztatás sikertelen!</string>
+    <string name="PasswordChangeSuccess">Jelszóváltoztatás sikeres!</string>
+    <string name="sending_failed">Kiküldés sikertelen!</string>
+    <string name="sending_success">Megerősítő kód kiküldve!</string>
+</resources>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2020
+  ~ Created by Suszter Dominik on 2020. 12. 4
+  ~ Copyright © 2020. RR. All rights reserved.
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/nav_sections"
+            android:icon="@drawable/ic_baseline_domain_24"
+            android:title="@string/section_menu">
+        </item>
+        <item android:id="@+id/nav_lectures"
+            android:icon="@drawable/ic_baseline_watch_later_24"
+            android:title="@string/lectures_menu">
+        </item>
+        <item android:id="@+id/nav_rooms"
+            android:icon="@drawable/ic_baseline_home_repair_service_24"
+            android:title="@string/rooms_menu">
+        </item>
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/nav_sign_out"
+            android:icon="@drawable/ic_baseline_login_24"
+            android:title="@string/logout">
+        </item>
+
+    </group>
+
+</menu>
